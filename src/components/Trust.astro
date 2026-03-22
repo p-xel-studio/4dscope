@@ -1,17 +1,21 @@
 ---
 import site from '@/content/site.json';
 const { trust } = site;
+
+const logos = [
+  { src: '/Archeoforum_Logo.png', alt: 'Archéoforum de Liège' },
+  { src: '/logo-Curtius.png', alt: 'Grand Curtius' },
+  { src: '/Logo_porte-hal.svg', alt: 'Porte de Hal' },
+  { src: '/Louvre-len-vallee.png', alt: 'Louvre Lens Vallée' },
+];
 ---
 
 <section class="py-20 border-t border-b border-bdr" aria-label="Sites de référence">
   <div class="max-w-[1200px] mx-auto px-8">
     <p class="text-center text-[0.75rem] tracking-[0.15em] uppercase text-text-d mb-10">{trust.label}</p>
-    <div class="flex items-center justify-center gap-16 flex-wrap">
-      {trust.sites.map((s: { name: string; location: string }) => (
-        <div class="text-center">
-          <div class="font-serif text-[1.15rem] text-text mb-0.5">{s.name}</div>
-          <div class="text-[0.78rem] text-text-d tracking-wide">{s.location}</div>
-        </div>
+    <div class="flex items-center justify-center gap-12 lg:gap-20 flex-wrap">
+      {logos.map((logo) => (
+        <img src={logo.src} alt={logo.alt} class="h-10 lg:h-12 object-contain opacity-60 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" />
       ))}
     </div>
   </div>
