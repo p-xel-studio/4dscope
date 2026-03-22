@@ -16,12 +16,6 @@ const { hero } = site;
   <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
 
   <div class="relative z-10 text-center max-w-[920px]" style="pointer-events: none;">
-    <!-- Badge -->
-    <div class="gs-reveal inline-flex items-center gap-2 px-5 py-2 border border-accent-d rounded-full text-[0.78rem] tracking-wide text-accent mb-10">
-      <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
-      {hero.badge}
-    </div>
-
     <!-- Title -->
     <h1 class="gs-reveal font-serif text-[clamp(3rem,7vw,5.5rem)] font-medium leading-[1.05] tracking-tight text-wh mb-6">
       {hero.title} <em class="italic text-accent">{hero.titleAccent}</em>
