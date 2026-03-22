@@ -22,10 +22,10 @@ const { hero } = site;
     </h1>
 
     <!-- Subtitle -->
-    <p class="gs-reveal text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle.replace(
-      'conçue pour le milieu public',
-      '<strong class="font-medium text-text">conçue pour le milieu public</strong>'
-    )} />
+    <p class="gs-reveal text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle
+      .replace('borne immersive VR', '<strong class="font-medium text-text">borne immersive VR</strong>')
+      .replace('conçue pour le milieu public', '<strong class="font-medium text-text">conçue pour le milieu public</strong>')
+    } />
 
     <!-- Keywords -->
     <p class="gs-reveal text-sm text-text-d mb-12">
