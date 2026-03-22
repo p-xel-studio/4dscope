@@ -151,86 +151,119 @@ const { hero } = site;
       return [70 + (100 - 70) * f, 200 + (190 - 200) * f, 140 + (180 - 140) * f];
     }
 
-    // Aurora — flowing diagonal ribbons sweeping across the screen (Stitch-style)
+    // Aurora — silk-like flowing ribbons (Stitch-style)
+    // Attempt a Catmull-Rom spline for buttery smooth curves
+    function catmullRom(p0y: number, p1y: number, p2y: number, p3y: number, t: number): number {
+      const t2 = t * t, t3 = t2 * t;
+      return 0.5 * ((2 * p1y) + (-p0y + p2y) * t + (2 * p0y - 5 * p1y + 4 * p2y - p3y) * t2 + (-p0y + 3 * p1y - 3 * p2y + p3y) * t3);
+    }
+
     function drawAurora(t: number) {
       aCtx.clearRect(0, 0, width, height);
 
-      // Each ribbon: a flowing bezier shape sweeping from left to right
       const ribbons = [
-        // Main ribbon — sweeps from bottom-left to top-right
-        { color1: [20, 180, 160], color2: [40, 120, 180], opacity: 0.7, phase: 0, speed: 0.08, yStart: 0.9, yEnd: 0.1, thickness: 0.12, xShift: 0 },
-        // Secondary — overlaps, slightly offset
-        { color1: [30, 200, 150], color2: [60, 150, 200], opacity: 0.55, phase: 1.8, speed: 0.10, yStart: 0.95, yEnd: 0.15, thickness: 0.10, xShift: 0.05 },
-        // Accent ribbon — tighter, brighter
-        { color1: [50, 220, 170], color2: [80, 170, 210], opacity: 0.5, phase: 3.5, speed: 0.06, yStart: 0.85, yEnd: 0.05, thickness: 0.08, xShift: -0.05 },
-        // Deep teal ribbon — wider, more background
-        { color1: [15, 160, 140], color2: [30, 100, 160], opacity: 0.45, phase: 5.0, speed: 0.12, yStart: 1.0, yEnd: 0.2, thickness: 0.15, xShift: 0.1 },
-        // Cyan highlight ribbon
-        { color1: [40, 190, 200], color2: [70, 140, 190], opacity: 0.4, phase: 2.5, speed: 0.07, yStart: 0.8, yEnd: 0.0, thickness: 0.07, xShift: -0.08 },
+        // Wide sweeping ribbon from far left
+        { colors: [[15, 170, 155], [35, 130, 185], [55, 100, 170]], opacity: 0.75, phase: 0, speed: 0.07, ampY: 0.30, ampX: 0.06, baseY: 0.6, thick: 0.18 },
+        // Overlapping ribbon, offset
+        { colors: [[30, 200, 160], [50, 165, 200], [40, 130, 190]], opacity: 0.6, phase: 2.1, speed: 0.09, ampY: 0.25, ampX: 0.05, baseY: 0.55, thick: 0.14 },
+        // Bright accent
+        { colors: [[50, 225, 175], [75, 185, 210], [60, 150, 195]], opacity: 0.5, phase: 4.2, speed: 0.05, ampY: 0.22, ampX: 0.07, baseY: 0.65, thick: 0.10 },
+        // Deep background sweep
+        { colors: [[10, 150, 135], [25, 110, 165], [40, 90, 155]], opacity: 0.55, phase: 1.0, speed: 0.11, ampY: 0.35, ampX: 0.04, baseY: 0.7, thick: 0.22 },
+        // Thin bright whip
+        { colors: [[45, 210, 190], [70, 180, 210], [55, 155, 200]], opacity: 0.45, phase: 3.3, speed: 0.06, ampY: 0.20, ampX: 0.08, baseY: 0.5, thick: 0.06 },
+        // Extra sweep for richness
+        { colors: [[20, 185, 170], [45, 150, 195], [65, 120, 180]], opacity: 0.4, phase: 5.5, speed: 0.08, ampY: 0.28, ampX: 0.05, baseY: 0.75, thick: 0.16 },
       ];
 
       for (const ribbon of ribbons) {
-        const pts = 40; // control points along the ribbon
-        const topPath: [number, number][] = [];
-        const botPath: [number, number][] = [];
+        // Generate spine control points (few points = large smooth curves)
+        const cpCount = 7;
+        const spineY: number[] = [];
 
-        for (let i = 0; i <= pts; i++) {
-          const frac = i / pts;
-          // Base x position: sweep from left edge to right edge
-          const bx = (frac * 1.4 - 0.2 + ribbon.xShift) * width;
-          // Base y: interpolate from yStart (bottom-left) to yEnd (top-right) with curve
-          const baseY = height * (ribbon.yStart + (ribbon.yEnd - ribbon.yStart) * frac);
-
-          // Add organic wave displacement
-          const wave = Math.sin(frac * 4 + t * ribbon.speed + ribbon.phase) * height * 0.08
-                     + Math.sin(frac * 7 + t * ribbon.speed * 1.5 + ribbon.phase * 0.6) * height * 0.04
-                     + Math.cos(frac * 2.5 + t * 0.05 + ribbon.phase) * height * 0.05;
-
-          const y = baseY + wave;
-
-          // Thickness varies along the ribbon
-          const thick = width * ribbon.thickness * (0.5 + 0.5 * Math.sin(frac * 3.5 + t * 0.1 + ribbon.phase));
-
-          topPath.push([bx, y - thick * 0.5]);
-          botPath.push([bx, y + thick * 0.5]);
+        for (let i = 0; i < cpCount; i++) {
+          const f = i / (cpCount - 1);
+          // Large sweeping motion — low frequency waves
+          const y = height * ribbon.baseY
+            + Math.sin(f * Math.PI * 1.2 + t * ribbon.speed + ribbon.phase) * height * ribbon.ampY
+            + Math.sin(f * Math.PI * 2.5 + t * ribbon.speed * 1.8 + ribbon.phase * 0.7) * height * ribbon.ampY * 0.4
+            + Math.cos(t * 0.04 + ribbon.phase + f * 0.5) * height * ribbon.ampX;
+          spineY[i] = y;
         }
 
-        // Draw the ribbon shape
-        aCtx.beginPath();
-        aCtx.moveTo(topPath[0][0], topPath[0][1]);
-        for (let i = 1; i < topPath.length; i++) {
-          const prev = topPath[i - 1];
-          const curr = topPath[i];
-          const cpx = (prev[0] + curr[0]) / 2;
-          aCtx.quadraticCurveTo(prev[0], prev[1], cpx, (prev[1] + curr[1]) / 2);
-        }
-        const lastTop = topPath[topPath.length - 1];
-        aCtx.lineTo(lastTop[0], lastTop[1]);
+        // Interpolate spine with Catmull-Rom for silky smoothness
+        const resolution = 80;
+        const spine: [number, number][] = [];
+        for (let i = 0; i < resolution; i++) {
+          const f = i / (resolution - 1);
+          const segment = f * (cpCount - 1);
+          const idx = Math.min(Math.floor(segment), cpCount - 2);
+          const localT = segment - idx;
 
-        // Bottom path in reverse
-        for (let i = botPath.length - 1; i >= 0; i--) {
-          if (i === botPath.length - 1) {
-            aCtx.lineTo(botPath[i][0], botPath[i][1]);
-          } else {
-            const next = botPath[i + 1];
-            const curr = botPath[i];
-            const cpx = (next[0] + curr[0]) / 2;
-            aCtx.quadraticCurveTo(next[0], next[1], cpx, (next[1] + curr[1]) / 2);
+          const p0 = spineY[Math.max(idx - 1, 0)];
+          const p1 = spineY[idx];
+          const p2 = spineY[Math.min(idx + 1, cpCount - 1)];
+          const p3 = spineY[Math.min(idx + 2, cpCount - 1)];
+
+          const x = (f * 1.6 - 0.3) * width; // wider than screen for edge coverage
+          const y = catmullRom(p0, p1, p2, p3, localT);
+          spine.push([x, y]);
+        }
+
+        // Build ribbon shape from spine with variable thickness
+        const topEdge: [number, number][] = [];
+        const botEdge: [number, number][] = [];
+
+        for (let i = 0; i < spine.length; i++) {
+          const [x, y] = spine[i];
+          const f = i / (spine.length - 1);
+
+          // Thickness: fades at edges, swells in middle, breathes with time
+          const envelope = Math.sin(f * Math.PI); // 0 at edges, 1 in middle
+          const breathe = 0.7 + 0.3 * Math.sin(f * 2 + t * 0.12 + ribbon.phase);
+          const thick = width * ribbon.thick * envelope * breathe * 0.5;
+
+          // Normal direction (perpendicular to path)
+          let nx = 0, ny = 1;
+          if (i > 0 && i < spine.length - 1) {
+            const dx = spine[i + 1][0] - spine[i - 1][0];
+            const dy = spine[i + 1][1] - spine[i - 1][1];
+            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+            nx = -dy / len;
+            ny = dx / len;
           }
+
+          topEdge.push([x + nx * thick, y + ny * thick]);
+          botEdge.push([x - nx * thick, y - ny * thick]);
+        }
+
+        // Draw smooth closed shape
+        aCtx.beginPath();
+        aCtx.moveTo(topEdge[0][0], topEdge[0][1]);
+        for (let i = 1; i < topEdge.length - 1; i += 2) {
+          const cp = topEdge[i];
+          const end = topEdge[Math.min(i + 1, topEdge.length - 1)];
+          aCtx.quadraticCurveTo(cp[0], cp[1], end[0], end[1]);
+        }
+
+        const lastBot = botEdge[botEdge.length - 1];
+        aCtx.lineTo(lastBot[0], lastBot[1]);
+        for (let i = botEdge.length - 2; i >= 0; i -= 2) {
+          const cp = botEdge[i];
+          const end = botEdge[Math.max(i - 1, 0)];
+          aCtx.quadraticCurveTo(cp[0], cp[1], end[0], end[1]);
         }
         aCtx.closePath();
 
-        // Gradient along the ribbon length for color variation
-        const [r1, g1, b1] = ribbon.color1;
-        const [r2, g2, b2] = ribbon.color2;
-        const pulse = ribbon.opacity + 0.1 * Math.sin(t * 0.15 + ribbon.phase);
+        // Multi-stop gradient for color richness along the ribbon
+        const [c1, c2, c3] = ribbon.colors;
+        const pulse = ribbon.opacity + 0.08 * Math.sin(t * 0.12 + ribbon.phase);
 
-        const grd = aCtx.createLinearGradient(0, height, width, 0);
-        grd.addColorStop(0, `rgba(${r1},${g1},${b1},${pulse})`);
-        grd.addColorStop(0.3, `rgba(${r1},${g1},${b1},${pulse * 0.8})`);
-        grd.addColorStop(0.5, `rgba(${Math.round((r1+r2)/2)},${Math.round((g1+g2)/2)},${Math.round((b1+b2)/2)},${pulse * 0.9})`);
-        grd.addColorStop(0.7, `rgba(${r2},${g2},${b2},${pulse * 0.7})`);
-        grd.addColorStop(1, `rgba(${r2},${g2},${b2},${pulse * 0.3})`);
+        const grd = aCtx.createLinearGradient(-width * 0.3, height, width * 1.3, 0);
+        grd.addColorStop(0, `rgba(${c1[0]},${c1[1]},${c1[2]},${pulse})`);
+        grd.addColorStop(0.35, `rgba(${c2[0]},${c2[1]},${c2[2]},${pulse * 0.85})`);
+        grd.addColorStop(0.65, `rgba(${c3[0]},${c3[1]},${c3[2]},${pulse * 0.9})`);
+        grd.addColorStop(1, `rgba(${c1[0]},${c1[1]},${c1[2]},${pulse * 0.4})`);
 
         aCtx.globalCompositeOperation = 'screen';
         aCtx.fillStyle = grd;
