@@ -151,50 +151,90 @@ const { hero } = site;
       return [70 + (100 - 70) * f, 200 + (190 - 200) * f, 140 + (180 - 140) * f];
     }
 
-    // Aurora — large organic glowing blobs concentrated in bottom half (like Stitch)
+    // Aurora — flowing diagonal ribbons sweeping across the screen (Stitch-style)
     function drawAurora(t: number) {
       aCtx.clearRect(0, 0, width, height);
-      aCtx.globalCompositeOperation = 'lighter';
 
-      // Glowing orbs that drift slowly in the lower portion
-      const orbs = [
-        // Main large glow — bottom center-left
-        { xBase: 0.3, yBase: 0.75, rx: 0.35, ry: 0.25, color: [50, 190, 160], opacity: 0.55, xSpeed: 0.08, ySpeed: 0.06, phase: 0 },
-        // Secondary glow — bottom center-right
-        { xBase: 0.7, yBase: 0.80, rx: 0.30, ry: 0.22, color: [70, 170, 200], opacity: 0.45, xSpeed: 0.06, ySpeed: 0.08, phase: 2.0 },
-        // Accent glow — bottom center, overlapping
-        { xBase: 0.5, yBase: 0.85, rx: 0.40, ry: 0.20, color: [40, 210, 150], opacity: 0.40, xSpeed: 0.10, ySpeed: 0.05, phase: 4.0 },
-        // Small bright accent — rises a bit higher
-        { xBase: 0.4, yBase: 0.65, rx: 0.20, ry: 0.18, color: [80, 180, 190], opacity: 0.30, xSpeed: 0.07, ySpeed: 0.09, phase: 1.5 },
-        // Far right subtle glow
-        { xBase: 0.85, yBase: 0.70, rx: 0.22, ry: 0.20, color: [60, 200, 170], opacity: 0.25, xSpeed: 0.05, ySpeed: 0.07, phase: 3.5 },
+      // Each ribbon: a flowing bezier shape sweeping from left to right
+      const ribbons = [
+        // Main ribbon — sweeps from bottom-left to top-right
+        { color1: [20, 180, 160], color2: [40, 120, 180], opacity: 0.7, phase: 0, speed: 0.08, yStart: 0.9, yEnd: 0.1, thickness: 0.12, xShift: 0 },
+        // Secondary — overlaps, slightly offset
+        { color1: [30, 200, 150], color2: [60, 150, 200], opacity: 0.55, phase: 1.8, speed: 0.10, yStart: 0.95, yEnd: 0.15, thickness: 0.10, xShift: 0.05 },
+        // Accent ribbon — tighter, brighter
+        { color1: [50, 220, 170], color2: [80, 170, 210], opacity: 0.5, phase: 3.5, speed: 0.06, yStart: 0.85, yEnd: 0.05, thickness: 0.08, xShift: -0.05 },
+        // Deep teal ribbon — wider, more background
+        { color1: [15, 160, 140], color2: [30, 100, 160], opacity: 0.45, phase: 5.0, speed: 0.12, yStart: 1.0, yEnd: 0.2, thickness: 0.15, xShift: 0.1 },
+        // Cyan highlight ribbon
+        { color1: [40, 190, 200], color2: [70, 140, 190], opacity: 0.4, phase: 2.5, speed: 0.07, yStart: 0.8, yEnd: 0.0, thickness: 0.07, xShift: -0.08 },
       ];
 
-      for (const orb of orbs) {
-        const cx = width * (orb.xBase + 0.08 * Math.sin(t * orb.xSpeed + orb.phase));
-        const cy = height * (orb.yBase + 0.05 * Math.cos(t * orb.ySpeed + orb.phase * 0.7));
-        const radX = width * orb.rx;
-        const radY = height * orb.ry;
+      for (const ribbon of ribbons) {
+        const pts = 40; // control points along the ribbon
+        const topPath: [number, number][] = [];
+        const botPath: [number, number][] = [];
 
-        const pulse = orb.opacity + 0.1 * Math.sin(t * 0.15 + orb.phase);
-        const [cr, cg, cb] = orb.color;
+        for (let i = 0; i <= pts; i++) {
+          const frac = i / pts;
+          // Base x position: sweep from left edge to right edge
+          const bx = (frac * 1.4 - 0.2 + ribbon.xShift) * width;
+          // Base y: interpolate from yStart (bottom-left) to yEnd (top-right) with curve
+          const baseY = height * (ribbon.yStart + (ribbon.yEnd - ribbon.yStart) * frac);
 
-        // Elliptical gradient
-        aCtx.save();
-        aCtx.translate(cx, cy);
-        aCtx.scale(1, radY / radX);
+          // Add organic wave displacement
+          const wave = Math.sin(frac * 4 + t * ribbon.speed + ribbon.phase) * height * 0.08
+                     + Math.sin(frac * 7 + t * ribbon.speed * 1.5 + ribbon.phase * 0.6) * height * 0.04
+                     + Math.cos(frac * 2.5 + t * 0.05 + ribbon.phase) * height * 0.05;
 
-        const grad = aCtx.createRadialGradient(0, 0, 0, 0, 0, radX);
-        grad.addColorStop(0, `rgba(${cr},${cg},${cb},${pulse})`);
-        grad.addColorStop(0.4, `rgba(${cr},${cg},${cb},${pulse * 0.6})`);
-        grad.addColorStop(0.7, `rgba(${cr},${cg},${cb},${pulse * 0.2})`);
-        grad.addColorStop(1, 'transparent');
+          const y = baseY + wave;
 
-        aCtx.fillStyle = grad;
+          // Thickness varies along the ribbon
+          const thick = width * ribbon.thickness * (0.5 + 0.5 * Math.sin(frac * 3.5 + t * 0.1 + ribbon.phase));
+
+          topPath.push([bx, y - thick * 0.5]);
+          botPath.push([bx, y + thick * 0.5]);
+        }
+
+        // Draw the ribbon shape
         aCtx.beginPath();
-        aCtx.arc(0, 0, radX, 0, Math.PI * 2);
+        aCtx.moveTo(topPath[0][0], topPath[0][1]);
+        for (let i = 1; i < topPath.length; i++) {
+          const prev = topPath[i - 1];
+          const curr = topPath[i];
+          const cpx = (prev[0] + curr[0]) / 2;
+          aCtx.quadraticCurveTo(prev[0], prev[1], cpx, (prev[1] + curr[1]) / 2);
+        }
+        const lastTop = topPath[topPath.length - 1];
+        aCtx.lineTo(lastTop[0], lastTop[1]);
+
+        // Bottom path in reverse
+        for (let i = botPath.length - 1; i >= 0; i--) {
+          if (i === botPath.length - 1) {
+            aCtx.lineTo(botPath[i][0], botPath[i][1]);
+          } else {
+            const next = botPath[i + 1];
+            const curr = botPath[i];
+            const cpx = (next[0] + curr[0]) / 2;
+            aCtx.quadraticCurveTo(next[0], next[1], cpx, (next[1] + curr[1]) / 2);
+          }
+        }
+        aCtx.closePath();
+
+        // Gradient along the ribbon length for color variation
+        const [r1, g1, b1] = ribbon.color1;
+        const [r2, g2, b2] = ribbon.color2;
+        const pulse = ribbon.opacity + 0.1 * Math.sin(t * 0.15 + ribbon.phase);
+
+        const grd = aCtx.createLinearGradient(0, height, width, 0);
+        grd.addColorStop(0, `rgba(${r1},${g1},${b1},${pulse})`);
+        grd.addColorStop(0.3, `rgba(${r1},${g1},${b1},${pulse * 0.8})`);
+        grd.addColorStop(0.5, `rgba(${Math.round((r1+r2)/2)},${Math.round((g1+g2)/2)},${Math.round((b1+b2)/2)},${pulse * 0.9})`);
+        grd.addColorStop(0.7, `rgba(${r2},${g2},${b2},${pulse * 0.7})`);
+        grd.addColorStop(1, `rgba(${r2},${g2},${b2},${pulse * 0.3})`);
+
+        aCtx.globalCompositeOperation = 'screen';
+        aCtx.fillStyle = grd;
         aCtx.fill();
-        aCtx.restore();
       }
     }
 
