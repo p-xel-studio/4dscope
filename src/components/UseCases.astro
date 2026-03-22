@@ -11,7 +11,7 @@ const { useCases } = site;
       <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{useCases.subtitle}</p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-16">
       {useCases.cases.map((uc: { icon: string; title: string; text: string }) => (
         <article class="gs-reveal p-8 px-6 bg-bg-card border border-bdr rounded-[14px] text-center transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
           <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center">

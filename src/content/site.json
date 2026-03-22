@@ -57,6 +57,7 @@
     "subtitle": "Partout où un lieu a une histoire à raconter, passé, présent ou futur.",
     "cases": [
       { "icon": "/Icon_Musee.svg", "title": "Musées", "text": "Reconstitutions historiques et expositions immersives" },
+      { "icon": "/Icon_villes.svg", "title": "Villes et territoires", "text": "Projections urbaines passé / présent / futur" },
       { "icon": "/Icon_tourism.svg", "title": "Tourisme", "text": "Points de vue panoramiques et circuits patrimoniaux" },
       { "icon": "/Icon_immo.svg", "title": "Immobilier et génie civil", "text": "Visualisation de projets futurs sur site" },
       { "icon": "/Icon_Event.svg", "title": "Événements", "text": "Activations immersives temporaires et itinérantes" }
