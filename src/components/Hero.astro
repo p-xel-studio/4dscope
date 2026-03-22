@@ -4,9 +4,22 @@ const { hero } = site;
 ---
 
 <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
-  <!-- Background effects -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(90,170,150,0.05)_0%,transparent_70%),radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(90,170,150,0.03)_0%,transparent_60%)]"></div>
-  <canvas id="hero-aurora" class="absolute inset-0 w-full h-full" style="filter: blur(80px); mask-image: radial-gradient(ellipse 100% 90% at 50% 70%, black 30%, transparent 90%); -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 70%, black 30%, transparent 90%);"></canvas>
+
+  <!-- Aurora CSS ribbons — GPU-accelerated, no canvas -->
+  <div class="aurora-container absolute inset-0 overflow-hidden" aria-hidden="true">
+    <!-- Left ribbon cluster -->
+    <div class="aurora-ribbon ribbon-1"></div>
+    <div class="aurora-ribbon ribbon-2"></div>
+    <div class="aurora-ribbon ribbon-3"></div>
+    <!-- Right ribbon cluster -->
+    <div class="aurora-ribbon ribbon-4"></div>
+    <div class="aurora-ribbon ribbon-5"></div>
+    <!-- Accent ribbons -->
+    <div class="aurora-ribbon ribbon-6"></div>
+    <div class="aurora-ribbon ribbon-7"></div>
+  </div>
+
+  <!-- Dot grid canvas -->
   <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
 
   <div class="relative z-10 text-center max-w-[920px]" style="pointer-events: none;">
@@ -78,16 +91,208 @@ const { hero } = site;
   </div>
 </section>
 
+<style>
+  /* Aurora ribbon system — pure CSS, GPU-accelerated */
+  .aurora-container {
+    mix-blend-mode: screen;
+  }
+
+  .aurora-ribbon {
+    position: absolute;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    filter: blur(80px);
+    will-change: transform;
+    mix-blend-mode: screen;
+  }
+
+  /* === LEFT CLUSTER — sweeps from bottom-left === */
+
+  /* Main left ribbon: wide, sweeping, dominant */
+  .ribbon-1 {
+    width: 120%;
+    height: 45%;
+    bottom: -10%;
+    left: -40%;
+    background: linear-gradient(
+      135deg,
+      rgba(30, 190, 160, 0.55) 0%,
+      rgba(40, 150, 200, 0.4) 30%,
+      rgba(50, 120, 185, 0.3) 60%,
+      transparent 85%
+    );
+    border-radius: 20% 80% 60% 20% / 30% 60% 40% 50%;
+    transform: rotate(-15deg) scaleX(1.3);
+    animation: drift1 25s ease-in-out infinite alternate;
+  }
+
+  /* Secondary left: overlapping, offset */
+  .ribbon-2 {
+    width: 100%;
+    height: 35%;
+    bottom: -5%;
+    left: -30%;
+    background: linear-gradient(
+      120deg,
+      rgba(50, 210, 170, 0.45) 0%,
+      rgba(60, 170, 210, 0.35) 35%,
+      rgba(45, 130, 190, 0.2) 65%,
+      transparent 90%
+    );
+    border-radius: 30% 70% 50% 40% / 50% 40% 60% 40%;
+    transform: rotate(-8deg) scaleX(1.2);
+    animation: drift2 30s ease-in-out infinite alternate;
+  }
+
+  /* Thin bright accent left */
+  .ribbon-3 {
+    width: 80%;
+    height: 20%;
+    bottom: 10%;
+    left: -25%;
+    background: linear-gradient(
+      140deg,
+      rgba(70, 230, 190, 0.5) 0%,
+      rgba(80, 190, 220, 0.35) 40%,
+      transparent 75%
+    );
+    border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%;
+    transform: rotate(-20deg) scaleX(1.5);
+    animation: drift3 20s ease-in-out infinite alternate;
+  }
+
+  /* === RIGHT CLUSTER — sweeps from bottom-right === */
+
+  /* Main right ribbon */
+  .ribbon-4 {
+    width: 110%;
+    height: 40%;
+    bottom: -8%;
+    right: -40%;
+    background: linear-gradient(
+      225deg,
+      rgba(40, 170, 200, 0.45) 0%,
+      rgba(35, 140, 185, 0.35) 30%,
+      rgba(30, 110, 170, 0.25) 60%,
+      transparent 85%
+    );
+    border-radius: 60% 30% 40% 70% / 50% 40% 50% 40%;
+    transform: rotate(12deg) scaleX(1.2);
+    animation: drift4 28s ease-in-out infinite alternate;
+  }
+
+  /* Secondary right */
+  .ribbon-5 {
+    width: 90%;
+    height: 30%;
+    bottom: 0%;
+    right: -30%;
+    background: linear-gradient(
+      210deg,
+      rgba(55, 200, 190, 0.4) 0%,
+      rgba(45, 160, 200, 0.3) 35%,
+      rgba(35, 120, 180, 0.15) 70%,
+      transparent 90%
+    );
+    border-radius: 50% 50% 30% 70% / 60% 30% 50% 40%;
+    transform: rotate(18deg) scaleX(1.4);
+    animation: drift5 22s ease-in-out infinite alternate;
+  }
+
+  /* === ACCENT RIBBONS — subtle connecting light === */
+
+  /* Center-bottom glow connecting left and right */
+  .ribbon-6 {
+    width: 70%;
+    height: 25%;
+    bottom: -5%;
+    left: 15%;
+    background: radial-gradient(
+      ellipse 100% 80% at 50% 80%,
+      rgba(40, 190, 175, 0.3) 0%,
+      rgba(50, 160, 200, 0.15) 50%,
+      transparent 80%
+    );
+    border-radius: 50%;
+    animation: drift6 35s ease-in-out infinite alternate;
+  }
+
+  /* Upper-left subtle whisp */
+  .ribbon-7 {
+    width: 60%;
+    height: 15%;
+    top: 15%;
+    left: -20%;
+    background: linear-gradient(
+      130deg,
+      rgba(40, 180, 165, 0.15) 0%,
+      rgba(50, 150, 190, 0.08) 50%,
+      transparent 80%
+    );
+    border-radius: 30% 70% 60% 40% / 50% 40% 60% 50%;
+    transform: rotate(-10deg) scaleX(2);
+    animation: drift7 40s ease-in-out infinite alternate;
+  }
+
+  /* === ANIMATIONS — slow, premium, gentle drift === */
+
+  @keyframes drift1 {
+    0%   { transform: rotate(-15deg) scaleX(1.3) translate(0, 0); }
+    50%  { transform: rotate(-12deg) scaleX(1.35) translate(3%, -4%); }
+    100% { transform: rotate(-18deg) scaleX(1.25) translate(-2%, 2%); }
+  }
+
+  @keyframes drift2 {
+    0%   { transform: rotate(-8deg) scaleX(1.2) translate(0, 0); }
+    50%  { transform: rotate(-5deg) scaleX(1.25) translate(4%, -3%); }
+    100% { transform: rotate(-11deg) scaleX(1.15) translate(-1%, 3%); }
+  }
+
+  @keyframes drift3 {
+    0%   { transform: rotate(-20deg) scaleX(1.5) translate(0, 0); }
+    50%  { transform: rotate(-16deg) scaleX(1.6) translate(5%, -5%); }
+    100% { transform: rotate(-24deg) scaleX(1.4) translate(-3%, 2%); }
+  }
+
+  @keyframes drift4 {
+    0%   { transform: rotate(12deg) scaleX(1.2) translate(0, 0); }
+    50%  { transform: rotate(15deg) scaleX(1.25) translate(-3%, -3%); }
+    100% { transform: rotate(9deg) scaleX(1.15) translate(2%, 2%); }
+  }
+
+  @keyframes drift5 {
+    0%   { transform: rotate(18deg) scaleX(1.4) translate(0, 0); }
+    50%  { transform: rotate(14deg) scaleX(1.5) translate(-4%, -4%); }
+    100% { transform: rotate(22deg) scaleX(1.3) translate(2%, 3%); }
+  }
+
+  @keyframes drift6 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50%  { transform: translate(3%, -2%) scale(1.05); opacity: 1; }
+    100% { transform: translate(-2%, 1%) scale(0.95); opacity: 0.7; }
+  }
+
+  @keyframes drift7 {
+    0%   { transform: rotate(-10deg) scaleX(2) translate(0, 0); opacity: 0.7; }
+    50%  { transform: rotate(-7deg) scaleX(2.1) translate(5%, 3%); opacity: 1; }
+    100% { transform: rotate(-13deg) scaleX(1.9) translate(-3%, -2%); opacity: 0.6; }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-ribbon {
+      animation: none !important;
+    }
+  }
+</style>
+
 <script>
   import gsap from 'gsap';
 
   const dotsCanvas = document.getElementById('hero-dots') as HTMLCanvasElement;
-  const auroraCanvas = document.getElementById('hero-aurora') as HTMLCanvasElement;
   const section = document.getElementById('hero-section');
 
-  if (dotsCanvas && auroraCanvas && section) {
-    const dCtx = dotsCanvas.getContext('2d')!;
-    const aCtx = auroraCanvas.getContext('2d')!;
+  if (dotsCanvas && section) {
+    const ctx = dotsCanvas.getContext('2d')!;
     let width = 0;
     let height = 0;
     let cols = 0;
@@ -97,6 +302,7 @@ const { hero } = site;
     if (isMobile) spacing = 38;
 
     const baseRadius = isMobile ? 0.8 : 1;
+    const accentR = 90, accentG = 170, accentB = 150;
 
     // Mouse interaction
     const mouse = { x: -9999, y: -9999 };
@@ -119,16 +325,9 @@ const { hero } = site;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = dotsCanvas.offsetWidth;
       height = dotsCanvas.offsetHeight;
-
-      // Dots canvas at full DPR
       dotsCanvas.width = width * dpr;
       dotsCanvas.height = height * dpr;
-      dCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      // Aurora canvas at half res for perf (CSS blur handles the rest)
-      auroraCanvas.width = width;
-      auroraCanvas.height = height;
-
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       cols = Math.ceil(width / spacing) + 1;
       rows = Math.ceil(height / spacing) + 1;
     }
@@ -138,142 +337,9 @@ const { hero } = site;
 
     const state = { time: 0 };
 
-    // Aurora color palette for dots
-    function auroraColor(x: number, y: number, t: number): [number, number, number] {
-      const h = (Math.sin(x * 0.003 + t * 0.4) * 0.5
-               + Math.sin(y * 0.004 - t * 0.3) * 0.3
-               + Math.sin((x + y) * 0.002 + t * 0.2) * 0.2) * 0.5 + 0.5;
-      if (h < 0.5) {
-        const f = h * 2;
-        return [90 + (70 - 90) * f, 170 + (200 - 170) * f, 150 + (140 - 150) * f];
-      }
-      const f = (h - 0.5) * 2;
-      return [70 + (100 - 70) * f, 200 + (190 - 200) * f, 140 + (180 - 140) * f];
-    }
-
-    // Aurora — silk-like flowing ribbons (Stitch-style)
-    // Attempt a Catmull-Rom spline for buttery smooth curves
-    function catmullRom(p0y: number, p1y: number, p2y: number, p3y: number, t: number): number {
-      const t2 = t * t, t3 = t2 * t;
-      return 0.5 * ((2 * p1y) + (-p0y + p2y) * t + (2 * p0y - 5 * p1y + 4 * p2y - p3y) * t2 + (-p0y + 3 * p1y - 3 * p2y + p3y) * t3);
-    }
-
-    function drawAurora(t: number) {
-      aCtx.clearRect(0, 0, width, height);
-
-      const ribbons = [
-        // Wide sweeping ribbon from far left
-        { colors: [[15, 170, 155], [35, 130, 185], [55, 100, 170]], opacity: 0.75, phase: 0, speed: 0.07, ampY: 0.30, ampX: 0.06, baseY: 0.6, thick: 0.18 },
-        // Overlapping ribbon, offset
-        { colors: [[30, 200, 160], [50, 165, 200], [40, 130, 190]], opacity: 0.6, phase: 2.1, speed: 0.09, ampY: 0.25, ampX: 0.05, baseY: 0.55, thick: 0.14 },
-        // Bright accent
-        { colors: [[50, 225, 175], [75, 185, 210], [60, 150, 195]], opacity: 0.5, phase: 4.2, speed: 0.05, ampY: 0.22, ampX: 0.07, baseY: 0.65, thick: 0.10 },
-        // Deep background sweep
-        { colors: [[10, 150, 135], [25, 110, 165], [40, 90, 155]], opacity: 0.55, phase: 1.0, speed: 0.11, ampY: 0.35, ampX: 0.04, baseY: 0.7, thick: 0.22 },
-        // Thin bright whip
-        { colors: [[45, 210, 190], [70, 180, 210], [55, 155, 200]], opacity: 0.45, phase: 3.3, speed: 0.06, ampY: 0.20, ampX: 0.08, baseY: 0.5, thick: 0.06 },
-        // Extra sweep for richness
-        { colors: [[20, 185, 170], [45, 150, 195], [65, 120, 180]], opacity: 0.4, phase: 5.5, speed: 0.08, ampY: 0.28, ampX: 0.05, baseY: 0.75, thick: 0.16 },
-      ];
-
-      for (const ribbon of ribbons) {
-        // Generate spine control points (few points = large smooth curves)
-        const cpCount = 7;
-        const spineY: number[] = [];
-
-        for (let i = 0; i < cpCount; i++) {
-          const f = i / (cpCount - 1);
-          // Large sweeping motion — low frequency waves
-          const y = height * ribbon.baseY
-            + Math.sin(f * Math.PI * 1.2 + t * ribbon.speed + ribbon.phase) * height * ribbon.ampY
-            + Math.sin(f * Math.PI * 2.5 + t * ribbon.speed * 1.8 + ribbon.phase * 0.7) * height * ribbon.ampY * 0.4
-            + Math.cos(t * 0.04 + ribbon.phase + f * 0.5) * height * ribbon.ampX;
-          spineY[i] = y;
-        }
-
-        // Interpolate spine with Catmull-Rom for silky smoothness
-        const resolution = 80;
-        const spine: [number, number][] = [];
-        for (let i = 0; i < resolution; i++) {
-          const f = i / (resolution - 1);
-          const segment = f * (cpCount - 1);
-          const idx = Math.min(Math.floor(segment), cpCount - 2);
-          const localT = segment - idx;
-
-          const p0 = spineY[Math.max(idx - 1, 0)];
-          const p1 = spineY[idx];
-          const p2 = spineY[Math.min(idx + 1, cpCount - 1)];
-          const p3 = spineY[Math.min(idx + 2, cpCount - 1)];
-
-          const x = (f * 1.6 - 0.3) * width; // wider than screen for edge coverage
-          const y = catmullRom(p0, p1, p2, p3, localT);
-          spine.push([x, y]);
-        }
-
-        // Build ribbon shape from spine with variable thickness
-        const topEdge: [number, number][] = [];
-        const botEdge: [number, number][] = [];
-
-        for (let i = 0; i < spine.length; i++) {
-          const [x, y] = spine[i];
-          const f = i / (spine.length - 1);
-
-          // Thickness: fades at edges, swells in middle, breathes with time
-          const envelope = Math.sin(f * Math.PI); // 0 at edges, 1 in middle
-          const breathe = 0.7 + 0.3 * Math.sin(f * 2 + t * 0.12 + ribbon.phase);
-          const thick = width * ribbon.thick * envelope * breathe * 0.5;
-
-          // Normal direction (perpendicular to path)
-          let nx = 0, ny = 1;
-          if (i > 0 && i < spine.length - 1) {
-            const dx = spine[i + 1][0] - spine[i - 1][0];
-            const dy = spine[i + 1][1] - spine[i - 1][1];
-            const len = Math.sqrt(dx * dx + dy * dy) || 1;
-            nx = -dy / len;
-            ny = dx / len;
-          }
-
-          topEdge.push([x + nx * thick, y + ny * thick]);
-          botEdge.push([x - nx * thick, y - ny * thick]);
-        }
-
-        // Draw smooth closed shape
-        aCtx.beginPath();
-        aCtx.moveTo(topEdge[0][0], topEdge[0][1]);
-        for (let i = 1; i < topEdge.length - 1; i += 2) {
-          const cp = topEdge[i];
-          const end = topEdge[Math.min(i + 1, topEdge.length - 1)];
-          aCtx.quadraticCurveTo(cp[0], cp[1], end[0], end[1]);
-        }
-
-        const lastBot = botEdge[botEdge.length - 1];
-        aCtx.lineTo(lastBot[0], lastBot[1]);
-        for (let i = botEdge.length - 2; i >= 0; i -= 2) {
-          const cp = botEdge[i];
-          const end = botEdge[Math.max(i - 1, 0)];
-          aCtx.quadraticCurveTo(cp[0], cp[1], end[0], end[1]);
-        }
-        aCtx.closePath();
-
-        // Multi-stop gradient for color richness along the ribbon
-        const [c1, c2, c3] = ribbon.colors;
-        const pulse = ribbon.opacity + 0.08 * Math.sin(t * 0.12 + ribbon.phase);
-
-        const grd = aCtx.createLinearGradient(-width * 0.3, height, width * 1.3, 0);
-        grd.addColorStop(0, `rgba(${c1[0]},${c1[1]},${c1[2]},${pulse})`);
-        grd.addColorStop(0.35, `rgba(${c2[0]},${c2[1]},${c2[2]},${pulse * 0.85})`);
-        grd.addColorStop(0.65, `rgba(${c3[0]},${c3[1]},${c3[2]},${pulse * 0.9})`);
-        grd.addColorStop(1, `rgba(${c1[0]},${c1[1]},${c1[2]},${pulse * 0.4})`);
-
-        aCtx.globalCompositeOperation = 'screen';
-        aCtx.fillStyle = grd;
-        aCtx.fill();
-      }
-    }
-
-    // Draw dot grid
-    function drawDots(t: number) {
-      dCtx.clearRect(0, 0, width, height);
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      const t = state.time;
 
       mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.12;
       mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.12;
@@ -304,21 +370,12 @@ const { hero } = site;
             radius += ease * 3.5;
           }
 
-          const [r, g, b] = auroraColor(x, y, t);
-          dCtx.beginPath();
-          dCtx.arc(x, y, radius, 0, Math.PI * 2);
-          dCtx.fillStyle = `rgba(${r|0},${g|0},${b|0},${opacity})`;
-          dCtx.fill();
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentR},${accentG},${accentB},${opacity})`;
+          ctx.fill();
         }
       }
-    }
-
-    let auroraFrame = 0;
-    function draw() {
-      const t = state.time;
-      // Aurora updates every 2nd frame for perf (CSS blur is heavy)
-      if (auroraFrame++ % 2 === 0) drawAurora(t);
-      drawDots(t);
     }
 
     gsap.ticker.add(draw);
