@@ -6,7 +6,7 @@ const { hero } = site;
 <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
   <!-- Background effects -->
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(90,170,150,0.05)_0%,transparent_70%),radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(90,170,150,0.03)_0%,transparent_60%)]"></div>
-  <canvas id="hero-aurora" class="absolute inset-0 w-full h-full" style="filter: blur(100px); mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black, transparent 80%); -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black, transparent 80%);"></canvas>
+  <canvas id="hero-aurora" class="absolute inset-0 w-full h-full" style="filter: blur(80px); mask-image: radial-gradient(ellipse 100% 90% at 50% 70%, black 30%, transparent 90%); -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 70%, black 30%, transparent 90%);"></canvas>
   <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
 
   <div class="relative z-10 text-center max-w-[920px]" style="pointer-events: none;">
@@ -151,66 +151,50 @@ const { hero } = site;
       return [70 + (100 - 70) * f, 200 + (190 - 200) * f, 140 + (180 - 140) * f];
     }
 
-    // Draw aurora bands on separate canvas (blurred by CSS filter: blur(100px))
+    // Aurora — large organic glowing blobs concentrated in bottom half (like Stitch)
     function drawAurora(t: number) {
       aCtx.clearRect(0, 0, width, height);
+      aCtx.globalCompositeOperation = 'lighter';
 
-      // Large flowing aurora shapes — high opacity, CSS blur does the diffusion
-      const bands = [
-        { yOff: 0.20, color: [30, 200, 140], phase: 0, speed: 0.10, thick: 0.18 },
-        { yOff: 0.38, color: [50, 220, 160], phase: 1.6, speed: 0.16, thick: 0.22 },
-        { yOff: 0.55, color: [70, 180, 200], phase: 3.0, speed: 0.12, thick: 0.20 },
-        { yOff: 0.70, color: [40, 230, 155], phase: 4.5, speed: 0.18, thick: 0.16 },
-        { yOff: 0.30, color: [60, 195, 180], phase: 2.2, speed: 0.08, thick: 0.24 },
-        { yOff: 0.48, color: [45, 210, 170], phase: 5.0, speed: 0.14, thick: 0.15 },
+      // Glowing orbs that drift slowly in the lower portion
+      const orbs = [
+        // Main large glow — bottom center-left
+        { xBase: 0.3, yBase: 0.75, rx: 0.35, ry: 0.25, color: [50, 190, 160], opacity: 0.55, xSpeed: 0.08, ySpeed: 0.06, phase: 0 },
+        // Secondary glow — bottom center-right
+        { xBase: 0.7, yBase: 0.80, rx: 0.30, ry: 0.22, color: [70, 170, 200], opacity: 0.45, xSpeed: 0.06, ySpeed: 0.08, phase: 2.0 },
+        // Accent glow — bottom center, overlapping
+        { xBase: 0.5, yBase: 0.85, rx: 0.40, ry: 0.20, color: [40, 210, 150], opacity: 0.40, xSpeed: 0.10, ySpeed: 0.05, phase: 4.0 },
+        // Small bright accent — rises a bit higher
+        { xBase: 0.4, yBase: 0.65, rx: 0.20, ry: 0.18, color: [80, 180, 190], opacity: 0.30, xSpeed: 0.07, ySpeed: 0.09, phase: 1.5 },
+        // Far right subtle glow
+        { xBase: 0.85, yBase: 0.70, rx: 0.22, ry: 0.20, color: [60, 200, 170], opacity: 0.25, xSpeed: 0.05, ySpeed: 0.07, phase: 3.5 },
       ];
 
-      for (const band of bands) {
-        const segments = 32;
-        const yBase = height * band.yOff;
+      for (const orb of orbs) {
+        const cx = width * (orb.xBase + 0.08 * Math.sin(t * orb.xSpeed + orb.phase));
+        const cy = height * (orb.yBase + 0.05 * Math.cos(t * orb.ySpeed + orb.phase * 0.7));
+        const radX = width * orb.rx;
+        const radY = height * orb.ry;
 
+        const pulse = orb.opacity + 0.1 * Math.sin(t * 0.15 + orb.phase);
+        const [cr, cg, cb] = orb.color;
+
+        // Elliptical gradient
+        aCtx.save();
+        aCtx.translate(cx, cy);
+        aCtx.scale(1, radY / radX);
+
+        const grad = aCtx.createRadialGradient(0, 0, 0, 0, 0, radX);
+        grad.addColorStop(0, `rgba(${cr},${cg},${cb},${pulse})`);
+        grad.addColorStop(0.4, `rgba(${cr},${cg},${cb},${pulse * 0.6})`);
+        grad.addColorStop(0.7, `rgba(${cr},${cg},${cb},${pulse * 0.2})`);
+        grad.addColorStop(1, 'transparent');
+
+        aCtx.fillStyle = grad;
         aCtx.beginPath();
-
-        // Top edge — smooth bezier-like wave
-        for (let s = 0; s <= segments; s++) {
-          const sx = (s / segments) * width;
-          const waveY = yBase
-            + Math.sin(sx * 0.002 + t * band.speed + band.phase) * height * 0.18
-            + Math.sin(sx * 0.004 + t * band.speed * 0.5 + band.phase * 1.4) * height * 0.09
-            + Math.cos(t * 0.12 + band.phase) * height * 0.06;
-          if (s === 0) aCtx.moveTo(sx, waveY);
-          else aCtx.lineTo(sx, waveY);
-        }
-
-        // Bottom edge — variable thickness
-        for (let s = segments; s >= 0; s--) {
-          const sx = (s / segments) * width;
-          const thickness = height * (band.thick + 0.08 * Math.sin(sx * 0.003 + t * 0.06 + band.phase));
-          const waveY = yBase
-            + Math.sin(sx * 0.002 + t * band.speed + band.phase) * height * 0.18
-            + Math.sin(sx * 0.004 + t * band.speed * 0.5 + band.phase * 1.4) * height * 0.09
-            + Math.cos(t * 0.12 + band.phase) * height * 0.06
-            + thickness;
-          aCtx.lineTo(sx, waveY);
-        }
-        aCtx.closePath();
-
-        const [cr, cg, cb] = band.color;
-        const pulse = 0.50 + 0.15 * Math.sin(t * 0.2 + band.phase);
-
-        // 2D gradient: horizontal fade + core brightness
-        const grd = aCtx.createLinearGradient(0, 0, width, 0);
-        grd.addColorStop(0, 'transparent');
-        grd.addColorStop(0.1, `rgba(${cr},${cg},${cb},${pulse * 0.5})`);
-        grd.addColorStop(0.3, `rgba(${cr},${cg},${cb},${pulse * 0.9})`);
-        grd.addColorStop(0.5, `rgba(${cr},${cg},${cb},${pulse})`);
-        grd.addColorStop(0.7, `rgba(${cr},${cg},${cb},${pulse * 0.9})`);
-        grd.addColorStop(0.9, `rgba(${cr},${cg},${cb},${pulse * 0.5})`);
-        grd.addColorStop(1, 'transparent');
-
-        aCtx.globalCompositeOperation = 'screen';
-        aCtx.fillStyle = grd;
+        aCtx.arc(0, 0, radX, 0, Math.PI * 2);
         aCtx.fill();
+        aCtx.restore();
       }
     }
 
