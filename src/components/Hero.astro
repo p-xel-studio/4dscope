@@ -3,17 +3,17 @@ import site from '@/content/site.json';
 const { hero } = site;
 ---
 
-<section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
+<section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-24 px-5 sm:px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
 
-  <!-- Video background -->
-  <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline aria-hidden="true">
+  <!-- Video background — preload metadata only for perf -->
+  <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
     <source src="/Animated_background.webm" type="video/webm" />
   </video>
   <!-- Dark overlay for text readability -->
   <div class="absolute inset-0 bg-black/65"></div>
 
-  <!-- Dot grid canvas -->
-  <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
+  <!-- Dot grid canvas — hidden on mobile for performance -->
+  <canvas id="hero-dots" class="hidden sm:block absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
 
   <div class="relative z-10 text-center max-w-[920px]" style="pointer-events: none;">
     <!-- Title -->
@@ -22,7 +22,7 @@ const { hero } = site;
     </h1>
 
     <!-- Subtitle -->
-    <p class="gs-reveal text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle
+    <p class="gs-reveal text-[0.95rem] sm:text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle
       .replace('borne immersive VR', '<strong class="font-medium text-text">borne immersive VR</strong>')
       .replace('conçue pour le milieu public', '<strong class="font-medium text-text">conçue pour le milieu public</strong>')
     } />
@@ -35,12 +35,12 @@ const { hero } = site;
     </p>
 
     <!-- CTAs -->
-    <div class="gs-reveal flex gap-4 justify-center flex-wrap">
-      <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide whitespace-nowrap hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all pointer-events-auto">
+    <div class="gs-reveal flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+      <a href="#contact" class="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-accent text-bg rounded-full text-[0.85rem] sm:text-[0.9rem] font-medium tracking-wide whitespace-nowrap hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all pointer-events-auto">
         {hero.cta}
         <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="#cas-usage" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all pointer-events-auto">
+      <a href="#cas-usage" class="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.85rem] sm:text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all pointer-events-auto">
         {hero.ctaSecondary}
       </a>
     </div>
