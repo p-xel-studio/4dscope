@@ -9,10 +9,23 @@ import site from '@/content/site.json';
     class="fixed top-0 left-0 right-0 z-50 px-8 py-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] bg-transparent"
   >
     <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+      <!-- Mobile: burger left -->
+      <button
+        class="flex lg:hidden flex-col justify-between w-7 h-5 bg-transparent border-none cursor-pointer"
+        aria-label="Ouvrir le menu"
+        id="mobile-toggle"
+      >
+        <span class="block h-0.5 w-full bg-text rounded-sm transition-transform duration-300 origin-center" id="burger-top"></span>
+        <span class="block h-0.5 w-full bg-text rounded-sm transition-opacity duration-300" id="burger-mid"></span>
+        <span class="block h-0.5 w-full bg-text rounded-sm transition-transform duration-300 origin-center" id="burger-bot"></span>
+      </button>
+
+      <!-- Logo -->
       <a href="#" class="flex items-center no-underline group" aria-label="4D-Scope, accueil">
         <img src="/Logo_4D-Scope.svg" alt="4D-Scope" class="h-6" width="469" height="103" />
       </a>
 
+      <!-- Desktop nav -->
       <ul class="hidden lg:flex items-center gap-10 list-none">
         <li><a href="#processus" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Processus</a></li>
         <li><a href="#specifications" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Spécifications</a></li>
@@ -25,22 +38,36 @@ import site from '@/content/site.json';
             href="#contact"
             class="px-6 py-2.5 bg-accent text-bg rounded-full text-[0.82rem] font-semibold tracking-wide hover:bg-accent-l hover:-translate-y-px transition-all"
           >
-            Discuter de votre projet
+            Nous contacter
           </a>
         </li>
       </ul>
 
-      <button
-        class="flex lg:hidden flex-col justify-between w-7 h-5 bg-transparent border-none cursor-pointer"
-        aria-label="Menu"
-        id="mobile-toggle"
+      <!-- Mobile: CTA right -->
+      <a
+        href="#contact"
+        class="lg:hidden px-5 py-2 bg-accent text-bg rounded-full text-[0.78rem] font-semibold tracking-wide hover:bg-accent-l transition-all"
       >
-        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
-        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
-        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
-      </button>
+        Contact
+      </a>
     </div>
   </nav>
+
+  <!-- Mobile menu panel -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-40 bg-bg/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 transition-all duration-500 opacity-0 pointer-events-none lg:hidden"
+  >
+    <a href="#processus" class="mobile-link text-2xl font-light text-text tracking-wide">Processus</a>
+    <a href="#specifications" class="mobile-link text-2xl font-light text-text tracking-wide">Spécifications</a>
+    <a href="#offre" class="mobile-link text-2xl font-light text-text tracking-wide">Offre</a>
+    <a href="#cas-usage" class="mobile-link text-2xl font-light text-text tracking-wide">Cas d'usage</a>
+    <a href="#installations" class="mobile-link text-2xl font-light text-text tracking-wide">Installations</a>
+    <a href="#faq" class="mobile-link text-2xl font-light text-text tracking-wide">FAQ</a>
+    <a href="#contact" class="mt-4 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-semibold tracking-wide">
+      Nous contacter
+    </a>
+  </div>
 </header>
 
 <style>
@@ -52,4 +79,46 @@ import site from '@/content/site.json';
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
   }
+
+  #mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
 </style>
+
+<script>
+  const toggle = document.getElementById('mobile-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const burgerTop = document.getElementById('burger-top');
+  const burgerMid = document.getElementById('burger-mid');
+  const burgerBot = document.getElementById('burger-bot');
+
+  if (toggle && menu) {
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+
+      // Animate burger to X
+      if (isOpen) {
+        burgerTop!.style.transform = 'translateY(8px) rotate(45deg)';
+        burgerMid!.style.opacity = '0';
+        burgerBot!.style.transform = 'translateY(-8px) rotate(-45deg)';
+      } else {
+        burgerTop!.style.transform = '';
+        burgerMid!.style.opacity = '';
+        burgerBot!.style.transform = '';
+      }
+    });
+
+    // Close menu when clicking a link
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        burgerTop!.style.transform = '';
+        burgerMid!.style.opacity = '';
+        burgerBot!.style.transform = '';
+        toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      });
+    });
+  }
+</script>
