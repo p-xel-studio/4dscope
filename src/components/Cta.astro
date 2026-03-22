@@ -4,7 +4,12 @@ const { cta } = site;
 ---
 
 <section class="relative py-40 text-center overflow-hidden" id="contact">
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(90,170,150,0.12)_0%,transparent_70%)]"></div>
+  <!-- Animated glow orbs -->
+  <div class="absolute inset-0" aria-hidden="true">
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
+    <div class="cta-orb cta-orb-3"></div>
+  </div>
 
   <div class="relative z-10 max-w-[1200px] mx-auto px-8">
     <div class="gs-reveal">
@@ -26,3 +31,62 @@ const { cta } = site;
     </div>
   </div>
 </section>
+
+<style>
+  .cta-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+
+  .cta-orb-1 {
+    width: 500px;
+    height: 500px;
+    left: 10%;
+    top: -20%;
+    background: radial-gradient(circle, rgba(50, 200, 160, 0.18) 0%, transparent 70%);
+    animation: ctaFloat1 18s ease-in-out infinite alternate;
+  }
+
+  .cta-orb-2 {
+    width: 400px;
+    height: 400px;
+    right: 5%;
+    bottom: -15%;
+    background: radial-gradient(circle, rgba(70, 170, 200, 0.15) 0%, transparent 70%);
+    animation: ctaFloat2 22s ease-in-out infinite alternate;
+  }
+
+  .cta-orb-3 {
+    width: 350px;
+    height: 350px;
+    left: 40%;
+    bottom: -10%;
+    background: radial-gradient(circle, rgba(40, 210, 150, 0.12) 0%, transparent 70%);
+    animation: ctaFloat3 15s ease-in-out infinite alternate;
+  }
+
+  @keyframes ctaFloat1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(5%, 10%) scale(1.1); }
+    100% { transform: translate(-3%, 5%) scale(0.95); }
+  }
+
+  @keyframes ctaFloat2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-6%, -8%) scale(1.15); }
+    100% { transform: translate(4%, -3%) scale(0.9); }
+  }
+
+  @keyframes ctaFloat3 {
+    0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50%  { transform: translate(-4%, 6%) scale(1.1); opacity: 1; }
+    100% { transform: translate(6%, -4%) scale(0.95); opacity: 0.7; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-orb { animation: none !important; }
+  }
+</style>
