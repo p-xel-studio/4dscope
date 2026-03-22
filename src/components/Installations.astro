@@ -11,13 +11,16 @@ import installations from '@/content/installations.json';
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-      {installations.items.map((inst: { icon: string; title: string; location: string; text: string; gradient: string[] }) => (
-        <article class="gs-reveal border border-bdr rounded-2xl overflow-hidden bg-bg-card transition-all duration-400 hover:border-accent-d hover:-translate-y-1">
-          <div
-            class="aspect-[3/2] flex items-center justify-center text-[2.5rem]"
-            style={`background: linear-gradient(135deg, ${inst.gradient[0]}, ${inst.gradient[1]})`}
-          >
-            {inst.icon}
+      {installations.items.map((inst: { image: string; title: string; location: string; text: string }) => (
+        <article class="gs-reveal group border border-bdr rounded-2xl overflow-hidden bg-bg-card transition-all duration-400 hover:border-accent-d hover:-translate-y-1">
+          <div class="aspect-[3/2] overflow-hidden">
+            {inst.image ? (
+              <img src={inst.image} alt={inst.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+            ) : (
+              <div class="w-full h-full bg-gradient-to-br from-bg-el to-bg flex items-center justify-center">
+                <span class="text-text-d text-[0.82rem] tracking-wide">Photo à venir</span>
+              </div>
+            )}
           </div>
           <div class="p-6">
             <h3 class="font-serif text-[1.15rem] text-wh mb-1 font-medium">{inst.title}</h3>

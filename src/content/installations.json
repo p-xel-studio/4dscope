@@ -1,28 +1,25 @@
 {
-  "tag": "Portfolio",
+  "tag": "Installations",
   "title": "Bornes immersives VR déjà en service.",
   "subtitle": "Des installations réelles, en fonctionnement continu, au service de milliers de visiteurs.",
   "items": [
     {
-      "icon": "⛏️",
+      "image": "/Mira_Arceoforum.webp",
       "title": "Archéoforum de Liège",
       "location": "Liège, Belgique · 2 unités",
-      "text": "Utilisation quotidienne intensive depuis 3+ ans. Reconstitution des vestiges romains et médiévaux sous la Place Saint-Lambert. Épreuve ultime : cars scolaires, humidité, poussière.",
-      "gradient": ["#131510", "#0b0c08"]
+      "text": "Reconstitution des vestiges romains et médiévaux sous la Place Saint-Lambert. Utilisation quotidienne intensive."
     },
     {
-      "icon": "🏛️",
+      "image": "",
       "title": "Grand Curtius",
       "location": "Liège, Belgique",
-      "text": "Intégration discrète dans un musée d'arts décoratifs. Preuve de l'adaptabilité esthétique du dispositif à des contextes intérieurs raffinés.",
-      "gradient": ["#111315", "#090a0c"]
+      "text": "Intégration discrète dans un musée d'arts décoratifs, adaptée à un contexte intérieur raffiné."
     },
     {
-      "icon": "🏰",
+      "image": "/Mira_Hal.webp",
       "title": "Porte de Hal",
       "location": "Bruxelles, Belgique",
-      "text": "L'installation originale. Panorama 360° recréant Bruxelles en 1550 depuis la porte médiévale. Là où le projet Mira est né.",
-      "gradient": ["#10130f", "#080a07"]
+      "text": "L'installation originale. Panorama 360° recréant Bruxelles en 1550 depuis la porte médiévale."
     }
   ]
 }
