@@ -15,7 +15,7 @@ const { process } = site;
       {process.steps.map((step: { num: string; title: string; text: string }) => (
         <article class="gs-reveal group relative p-10 bg-bg-card border border-bdr rounded-2xl overflow-hidden transition-all duration-400 hover:border-bdr-l hover:bg-bg-card-h">
           <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
-          <div class="font-serif text-5xl font-normal text-accent-d leading-none mb-6">{step.num}</div>
+          <div class="font-serif text-5xl font-normal text-accent-d leading-none mb-6 transition-all duration-400 group-hover:text-accent group-hover:drop-shadow-[0_0_12px_rgba(90,170,150,0.4)]">{step.num}</div>
           <h3 class="font-serif text-[1.3rem] text-wh mb-3 font-medium">{step.title}</h3>
           <p class="text-[0.92rem] text-text-m leading-relaxed">{step.text}</p>
         </article>

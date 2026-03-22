@@ -13,8 +13,8 @@ const { useCases } = site;
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-16">
       {useCases.cases.map((uc: { icon: string; title: string; text: string }) => (
-        <article class="gs-reveal p-8 px-6 bg-bg-card border border-bdr rounded-[14px] text-center transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
-          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center">
+        <article class="gs-reveal group p-8 px-6 bg-bg-card border border-bdr rounded-[14px] text-center transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center transition-all duration-350 group-hover:scale-110 group-hover:drop-shadow-[0_0_12px_rgba(90,170,150,0.35)]">
             <img src={uc.icon} alt="" class="w-10 h-10" width="40" height="40" />
           </div>
           <h3 class="text-[0.95rem] font-medium text-wh mb-1">{uc.title}</h3>

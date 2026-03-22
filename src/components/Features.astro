@@ -21,8 +21,8 @@ const iconPaths: Record<string, string> = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
       {features.items.map((feat: { icon: string; title: string; text: string }) => (
-        <article class="gs-reveal p-8 bg-bg-card border border-bdr rounded-[14px] transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
-          <div class="w-11 h-11 rounded-[10px] bg-accent/10 border border-accent/15 flex items-center justify-center mb-5 text-accent">
+        <article class="gs-reveal group p-8 bg-bg-card border border-bdr rounded-[14px] transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
+          <div class="w-11 h-11 rounded-[10px] bg-accent/10 border border-accent/15 flex items-center justify-center mb-5 text-accent transition-all duration-350 group-hover:bg-accent/20 group-hover:border-accent/30 group-hover:shadow-[0_0_16px_rgba(90,170,150,0.25)]">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d={iconPaths[feat.icon] || iconPaths.globe} />
             </svg>
