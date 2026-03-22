@@ -5,19 +5,12 @@ const { hero } = site;
 
 <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
 
-  <!-- Aurora CSS ribbons — GPU-accelerated, no canvas -->
-  <div class="aurora-container absolute inset-0 overflow-hidden" aria-hidden="true">
-    <!-- Left ribbon cluster -->
-    <div class="aurora-ribbon ribbon-1"></div>
-    <div class="aurora-ribbon ribbon-2"></div>
-    <div class="aurora-ribbon ribbon-3"></div>
-    <!-- Right ribbon cluster -->
-    <div class="aurora-ribbon ribbon-4"></div>
-    <div class="aurora-ribbon ribbon-5"></div>
-    <!-- Accent ribbons -->
-    <div class="aurora-ribbon ribbon-6"></div>
-    <div class="aurora-ribbon ribbon-7"></div>
-  </div>
+  <!-- Video background -->
+  <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline aria-hidden="true">
+    <source src="/Animated_background.webm" type="video/webm" />
+  </video>
+  <!-- Dark overlay for text readability -->
+  <div class="absolute inset-0 bg-black/40"></div>
 
   <!-- Dot grid canvas -->
   <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
@@ -90,200 +83,6 @@ const { hero } = site;
     </div>
   </div>
 </section>
-
-<style>
-  /* Aurora ribbon system — pure CSS, GPU-accelerated */
-  .aurora-container {
-    mix-blend-mode: screen;
-  }
-
-  .aurora-ribbon {
-    position: absolute;
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-    filter: blur(80px);
-    will-change: transform;
-    mix-blend-mode: screen;
-  }
-
-  /* === LEFT CLUSTER — sweeps from bottom-left === */
-
-  /* Main left ribbon: wide, sweeping, dominant */
-  .ribbon-1 {
-    width: 120%;
-    height: 45%;
-    bottom: -10%;
-    left: -40%;
-    background: linear-gradient(
-      135deg,
-      rgba(30, 190, 160, 0.55) 0%,
-      rgba(40, 150, 200, 0.4) 30%,
-      rgba(50, 120, 185, 0.3) 60%,
-      transparent 85%
-    );
-    border-radius: 20% 80% 60% 20% / 30% 60% 40% 50%;
-    transform: rotate(-15deg) scaleX(1.3);
-    animation: drift1 25s ease-in-out infinite alternate;
-  }
-
-  /* Secondary left: overlapping, offset */
-  .ribbon-2 {
-    width: 100%;
-    height: 35%;
-    bottom: -5%;
-    left: -30%;
-    background: linear-gradient(
-      120deg,
-      rgba(50, 210, 170, 0.45) 0%,
-      rgba(60, 170, 210, 0.35) 35%,
-      rgba(45, 130, 190, 0.2) 65%,
-      transparent 90%
-    );
-    border-radius: 30% 70% 50% 40% / 50% 40% 60% 40%;
-    transform: rotate(-8deg) scaleX(1.2);
-    animation: drift2 30s ease-in-out infinite alternate;
-  }
-
-  /* Thin bright accent left */
-  .ribbon-3 {
-    width: 80%;
-    height: 20%;
-    bottom: 10%;
-    left: -25%;
-    background: linear-gradient(
-      140deg,
-      rgba(70, 230, 190, 0.5) 0%,
-      rgba(80, 190, 220, 0.35) 40%,
-      transparent 75%
-    );
-    border-radius: 60% 40% 50% 50% / 40% 60% 40% 60%;
-    transform: rotate(-20deg) scaleX(1.5);
-    animation: drift3 20s ease-in-out infinite alternate;
-  }
-
-  /* === RIGHT CLUSTER — sweeps from bottom-right === */
-
-  /* Main right ribbon */
-  .ribbon-4 {
-    width: 110%;
-    height: 40%;
-    bottom: -8%;
-    right: -40%;
-    background: linear-gradient(
-      225deg,
-      rgba(40, 170, 200, 0.45) 0%,
-      rgba(35, 140, 185, 0.35) 30%,
-      rgba(30, 110, 170, 0.25) 60%,
-      transparent 85%
-    );
-    border-radius: 60% 30% 40% 70% / 50% 40% 50% 40%;
-    transform: rotate(12deg) scaleX(1.2);
-    animation: drift4 28s ease-in-out infinite alternate;
-  }
-
-  /* Secondary right */
-  .ribbon-5 {
-    width: 90%;
-    height: 30%;
-    bottom: 0%;
-    right: -30%;
-    background: linear-gradient(
-      210deg,
-      rgba(55, 200, 190, 0.4) 0%,
-      rgba(45, 160, 200, 0.3) 35%,
-      rgba(35, 120, 180, 0.15) 70%,
-      transparent 90%
-    );
-    border-radius: 50% 50% 30% 70% / 60% 30% 50% 40%;
-    transform: rotate(18deg) scaleX(1.4);
-    animation: drift5 22s ease-in-out infinite alternate;
-  }
-
-  /* === ACCENT RIBBONS — subtle connecting light === */
-
-  /* Center-bottom glow connecting left and right */
-  .ribbon-6 {
-    width: 70%;
-    height: 25%;
-    bottom: -5%;
-    left: 15%;
-    background: radial-gradient(
-      ellipse 100% 80% at 50% 80%,
-      rgba(40, 190, 175, 0.3) 0%,
-      rgba(50, 160, 200, 0.15) 50%,
-      transparent 80%
-    );
-    border-radius: 50%;
-    animation: drift6 35s ease-in-out infinite alternate;
-  }
-
-  /* Upper-left subtle whisp */
-  .ribbon-7 {
-    width: 60%;
-    height: 15%;
-    top: 15%;
-    left: -20%;
-    background: linear-gradient(
-      130deg,
-      rgba(40, 180, 165, 0.15) 0%,
-      rgba(50, 150, 190, 0.08) 50%,
-      transparent 80%
-    );
-    border-radius: 30% 70% 60% 40% / 50% 40% 60% 50%;
-    transform: rotate(-10deg) scaleX(2);
-    animation: drift7 40s ease-in-out infinite alternate;
-  }
-
-  /* === ANIMATIONS — slow, premium, gentle drift === */
-
-  @keyframes drift1 {
-    0%   { transform: rotate(-15deg) scaleX(1.3) translate(0, 0); }
-    50%  { transform: rotate(-12deg) scaleX(1.35) translate(3%, -4%); }
-    100% { transform: rotate(-18deg) scaleX(1.25) translate(-2%, 2%); }
-  }
-
-  @keyframes drift2 {
-    0%   { transform: rotate(-8deg) scaleX(1.2) translate(0, 0); }
-    50%  { transform: rotate(-5deg) scaleX(1.25) translate(4%, -3%); }
-    100% { transform: rotate(-11deg) scaleX(1.15) translate(-1%, 3%); }
-  }
-
-  @keyframes drift3 {
-    0%   { transform: rotate(-20deg) scaleX(1.5) translate(0, 0); }
-    50%  { transform: rotate(-16deg) scaleX(1.6) translate(5%, -5%); }
-    100% { transform: rotate(-24deg) scaleX(1.4) translate(-3%, 2%); }
-  }
-
-  @keyframes drift4 {
-    0%   { transform: rotate(12deg) scaleX(1.2) translate(0, 0); }
-    50%  { transform: rotate(15deg) scaleX(1.25) translate(-3%, -3%); }
-    100% { transform: rotate(9deg) scaleX(1.15) translate(2%, 2%); }
-  }
-
-  @keyframes drift5 {
-    0%   { transform: rotate(18deg) scaleX(1.4) translate(0, 0); }
-    50%  { transform: rotate(14deg) scaleX(1.5) translate(-4%, -4%); }
-    100% { transform: rotate(22deg) scaleX(1.3) translate(2%, 3%); }
-  }
-
-  @keyframes drift6 {
-    0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
-    50%  { transform: translate(3%, -2%) scale(1.05); opacity: 1; }
-    100% { transform: translate(-2%, 1%) scale(0.95); opacity: 0.7; }
-  }
-
-  @keyframes drift7 {
-    0%   { transform: rotate(-10deg) scaleX(2) translate(0, 0); opacity: 0.7; }
-    50%  { transform: rotate(-7deg) scaleX(2.1) translate(5%, 3%); opacity: 1; }
-    100% { transform: rotate(-13deg) scaleX(1.9) translate(-3%, -2%); opacity: 0.6; }
-  }
-
-  /* Reduce motion for accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .aurora-ribbon {
-      animation: none !important;
-    }
-  }
-</style>
 
 <script>
   import gsap from 'gsap';
@@ -359,7 +158,6 @@ const { hero } = site;
           let opacity = 0.05 + combined * 0.3;
           let radius = baseRadius + combined * 0.6;
 
-          // Mouse proximity
           const dx = x - mx;
           const dy = y - my;
           const dist2 = dx * dx + dy * dy;
