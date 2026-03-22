@@ -7,26 +7,30 @@ const logos = [
   { src: '/logo-Curtius.png', alt: 'Grand Curtius', name: 'Grand Curtius', location: 'Liège', bright: false },
   { src: '/Logo_porte-hal.svg', alt: 'Porte de Hal', name: 'Porte de Hal', location: 'Bruxelles', bright: false },
   { src: '/Louvre-len-vallee.png', alt: 'Louvre Lens Vallée', name: 'Louvre Lens Vallée', location: 'France', bright: true },
+  { src: '/logo-terra-mosana.webp', alt: 'Terra Mosana', name: 'Terra Mosana', location: 'Eurorégion', bright: true },
+  { src: '/University_of_Liege_logo.svg', alt: 'Université de Liège', name: 'ULiège', location: 'Liège', bright: false },
+  { src: '/liege.png', alt: 'Ville de Liège', name: 'Ville de Liège', location: 'Liège', bright: false },
+  { src: '/tresor.png', alt: 'Trésor de Liège', name: 'Trésor de Liège', location: 'Liège', bright: false },
 ];
 ---
 
 <section class="py-20 border-t border-b border-bdr" aria-label="Sites de référence">
   <div class="max-w-[1200px] mx-auto px-8">
     <p class="text-center text-[0.75rem] tracking-[0.15em] uppercase text-text-d mb-10">{trust.label}</p>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16 max-w-[700px] mx-auto">
+    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 lg:gap-10">
       {logos.map((logo) => (
         <div class="flex flex-col items-center gap-2.5 group">
           <img
             src={logo.src}
             alt={logo.alt}
             class:list={[
-              'h-10 lg:h-12 object-contain transition-all duration-300 grayscale group-hover:grayscale-0',
+              'h-9 lg:h-10 object-contain transition-all duration-300 grayscale group-hover:grayscale-0',
               logo.bright ? 'opacity-80 brightness-150 group-hover:opacity-100 group-hover:brightness-100' : 'opacity-60 group-hover:opacity-100'
             ]}
           />
           <div class="text-center">
-            <div class="text-[0.78rem] text-text-m font-medium">{logo.name}</div>
-            <div class="text-[0.68rem] text-text-d">{logo.location}</div>
+            <div class="text-[0.72rem] text-text-m font-medium">{logo.name}</div>
+            <div class="text-[0.62rem] text-text-d">{logo.location}</div>
           </div>
         </div>
       ))}
