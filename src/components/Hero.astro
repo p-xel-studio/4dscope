@@ -3,12 +3,12 @@ import site from '@/content/site.json';
 const { hero } = site;
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
+<section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
   <!-- Background effects -->
   <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(90,170,150,0.05)_0%,transparent_70%),radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(90,170,150,0.03)_0%,transparent_60%)]"></div>
   <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
 
-  <div class="relative z-10 text-center max-w-[920px]">
+  <div class="relative z-10 text-center max-w-[920px]" style="pointer-events: none;">
     <!-- Badge -->
     <div class="gs-reveal inline-flex items-center gap-2 px-5 py-2 border border-accent-d rounded-full text-[0.78rem] tracking-wide text-accent mb-10">
       <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
@@ -22,8 +22,8 @@ const { hero } = site;
 
     <!-- Subtitle -->
     <p class="gs-reveal text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle.replace(
-      'borne immersive VR la plus robuste du marché',
-      '<strong class="font-medium text-text">borne immersive VR la plus robuste du marché</strong>'
+      'conçue pour le milieu public',
+      '<strong class="font-medium text-text">conçue pour le milieu public</strong>'
     )} />
 
     <!-- Keywords -->
@@ -35,11 +35,11 @@ const { hero } = site;
 
     <!-- CTAs -->
     <div class="gs-reveal flex gap-4 justify-center flex-wrap">
-      <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all">
+      <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all pointer-events-auto">
         {hero.cta}
         <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="#cas-usage" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all">
+      <a href="#cas-usage" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all pointer-events-auto">
         {hero.ctaSecondary}
       </a>
     </div>
@@ -81,7 +81,8 @@ const { hero } = site;
   import gsap from 'gsap';
 
   const canvas = document.getElementById('hero-dots') as HTMLCanvasElement;
-  if (canvas) {
+  const section = document.getElementById('hero-section');
+  if (canvas && section) {
     const ctx = canvas.getContext('2d')!;
     let width = 0;
     let height = 0;
@@ -91,21 +92,20 @@ const { hero } = site;
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     if (isMobile) spacing = 38;
 
-    const baseRadius = isMobile ? 1 : 1.2;
-    const accentR = 90, accentG = 170, accentB = 150;
+    const baseRadius = isMobile ? 0.8 : 1;
 
-    // Mouse interaction
+    // Mouse interaction — listen on the whole section so it works over text/buttons
     const mouse = { x: -9999, y: -9999 };
     const mouseSmooth = { x: -9999, y: -9999 };
-    const mouseRadius = isMobile ? 0 : 120; // influence radius in px
+    const mouseRadius = isMobile ? 0 : 160;
 
     if (!isMobile) {
-      canvas.addEventListener('mousemove', (e) => {
+      section.addEventListener('mousemove', (e) => {
         const rect = canvas.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
       });
-      canvas.addEventListener('mouseleave', () => {
+      section.addEventListener('mouseleave', () => {
         mouse.x = -9999;
         mouse.y = -9999;
       });
@@ -128,45 +128,99 @@ const { hero } = site;
     // Animation state
     const state = { time: 0 };
 
+    // Aurora color palette — shifts between teal, emerald, and subtle cyan
+    function auroraColor(x: number, y: number, t: number): [number, number, number] {
+      const hueShift = Math.sin(x * 0.003 + t * 0.4) * 0.5
+                      + Math.sin(y * 0.004 - t * 0.3) * 0.3
+                      + Math.sin((x + y) * 0.002 + t * 0.2) * 0.2;
+      const h = hueShift * 0.5 + 0.5; // normalize 0-1
+
+      // Interpolate between colors: teal(90,170,150) → emerald(70,200,140) → cyan(100,190,180)
+      if (h < 0.5) {
+        const f = h * 2;
+        return [90 + (70 - 90) * f, 170 + (200 - 170) * f, 150 + (140 - 150) * f];
+      } else {
+        const f = (h - 0.5) * 2;
+        return [70 + (100 - 70) * f, 200 + (190 - 200) * f, 140 + (180 - 140) * f];
+      }
+    }
+
     function draw() {
       ctx.clearRect(0, 0, width, height);
       const t = state.time;
 
-      // Smooth mouse tracking (lerp for fluid feel)
-      mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.15;
-      mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.15;
+      // Smooth mouse tracking
+      mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.12;
+      mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.12;
 
       const mx = mouseSmooth.x;
       const my = mouseSmooth.y;
-      const mr2 = mouseRadius * mouseRadius; // squared for perf
+      const mr2 = mouseRadius * mouseRadius;
 
+      // Aurora glow — draw soft radial gradients that drift across the canvas
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+
+      const a1x = width * (0.3 + 0.2 * Math.sin(t * 0.3));
+      const a1y = height * (0.35 + 0.15 * Math.cos(t * 0.25));
+      const g1 = ctx.createRadialGradient(a1x, a1y, 0, a1x, a1y, width * 0.35);
+      g1.addColorStop(0, 'rgba(90,170,150,0.06)');
+      g1.addColorStop(0.5, 'rgba(70,200,140,0.025)');
+      g1.addColorStop(1, 'transparent');
+      ctx.fillStyle = g1;
+      ctx.fillRect(0, 0, width, height);
+
+      const a2x = width * (0.7 + 0.15 * Math.cos(t * 0.35));
+      const a2y = height * (0.5 + 0.2 * Math.sin(t * 0.2));
+      const g2 = ctx.createRadialGradient(a2x, a2y, 0, a2x, a2y, width * 0.3);
+      g2.addColorStop(0, 'rgba(100,190,180,0.05)');
+      g2.addColorStop(0.5, 'rgba(90,170,150,0.02)');
+      g2.addColorStop(1, 'transparent');
+      ctx.fillStyle = g2;
+      ctx.fillRect(0, 0, width, height);
+
+      const a3x = width * (0.5 + 0.25 * Math.sin(t * 0.18 + 2));
+      const a3y = height * (0.25 + 0.1 * Math.cos(t * 0.28));
+      const g3 = ctx.createRadialGradient(a3x, a3y, 0, a3x, a3y, width * 0.25);
+      g3.addColorStop(0, 'rgba(70,200,140,0.04)');
+      g3.addColorStop(1, 'transparent');
+      ctx.fillStyle = g3;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.restore();
+
+      // Dots grid
       for (let row = 0; row < rows; row++) {
         const y = row * spacing;
         for (let col = 0; col < cols; col++) {
           const x = col * spacing;
 
-          // Two overlapping sine waves for organic movement
+          // Sine waves for organic movement
           const wave1 = Math.sin(x * 0.008 + t * 1.2) * Math.cos(y * 0.006 + t * 0.8);
           const wave2 = Math.sin((x + y) * 0.005 + t * 0.6) * 0.5;
-          const combined = (wave1 + wave2) * 0.5 + 0.5; // normalize 0-1
+          const combined = (wave1 + wave2) * 0.5 + 0.5;
 
-          let opacity = 0.06 + combined * 0.35;
-          let radius = baseRadius + combined * 0.8;
+          let opacity = 0.05 + combined * 0.3;
+          let radius = baseRadius + combined * 0.6;
 
-          // Mouse proximity effect
+          // Mouse proximity — stronger effect
           const dx = x - mx;
           const dy = y - my;
           const dist2 = dx * dx + dy * dy;
+          let mouseInfluence = 0;
           if (dist2 < mr2) {
-            const proximity = 1 - Math.sqrt(dist2) / mouseRadius; // 1 at center, 0 at edge
-            const ease = proximity * proximity; // quadratic ease for smoother falloff
-            opacity += ease * 0.45;
-            radius += ease * 2.5;
+            const proximity = 1 - Math.sqrt(dist2) / mouseRadius;
+            mouseInfluence = proximity * proximity * proximity; // cubic for punchier center
+            opacity += mouseInfluence * 0.6;
+            radius += mouseInfluence * 3.5;
           }
+
+          // Aurora color shift on dots
+          const [r, g, b] = auroraColor(x, y, t);
 
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${accentR},${accentG},${accentB},${opacity})`;
+          ctx.fillStyle = `rgba(${r|0},${g|0},${b|0},${opacity})`;
           ctx.fill();
         }
       }
