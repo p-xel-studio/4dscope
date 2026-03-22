@@ -1,0 +1,37 @@
+{
+  "tag": "Offre",
+  "title": "Deux formules pour déployer votre borne immersive.",
+  "subtitle": "Choisissez le niveau de service adapté à votre projet et à vos ressources.",
+  "options": [
+    {
+      "label": "Formule 1",
+      "title": "Borne seule",
+      "text": "Idéal si vous disposez déjà d'un contenu VR ou d'un partenaire de production. Nous livrons, installons et maintenons le dispositif.",
+      "featured": false,
+      "includes": [
+        "Borne Mira by 4D-Scope",
+        "Installation sur site",
+        "Intégration du contenu client",
+        "Maintenance de 2 ans incluse",
+        "Garantie 5 ans sur la structure",
+        "Finitions et coloris personnalisables"
+      ],
+      "cta": "Demander un devis"
+    },
+    {
+      "label": "Formule 2",
+      "title": "Expérience complète",
+      "text": "Solution clé en main : borne, contenu immersif sur mesure et support à long terme.",
+      "featured": true,
+      "includes": [
+        "Tout ce qui est inclus dans la Borne seule",
+        "Production de contenu immersif sur mesure",
+        "360° / CGI / reconstitution historique",
+        "Conseil en scénographie et signalétique",
+        "Mise en place du suivi à distance",
+        "Extension de maintenance disponible"
+      ],
+      "cta": "Discuter de votre projet"
+    }
+  ]
+}

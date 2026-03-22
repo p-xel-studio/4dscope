@@ -1,0 +1,58 @@
+---
+import site from '@/content/site.json';
+---
+
+<header>
+  <nav
+    id="nav"
+    aria-label="Navigation principale"
+    class="fixed top-0 left-0 right-0 z-50 px-8 py-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] bg-transparent"
+  >
+    <div class="max-w-[1400px] mx-auto flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 no-underline group" aria-label="4D-Scope, accueil">
+        <div class="w-8 h-8 border-2 border-accent rounded-full flex items-center justify-center text-[0.65rem] text-accent tracking-widest font-medium">
+          4D
+        </div>
+        <span class="font-bold text-[1.15rem] tracking-[0.08em] text-text">4D-SCOPE</span>
+      </a>
+
+      <ul class="hidden lg:flex items-center gap-10 list-none">
+        <li><a href="#processus" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Processus</a></li>
+        <li><a href="#specifications" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Spécifications</a></li>
+        <li><a href="#offre" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Offre</a></li>
+        <li><a href="#cas-usage" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Cas d'usage</a></li>
+        <li><a href="#installations" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">Installations</a></li>
+        <li><a href="#faq" class="text-text-m text-sm tracking-wide hover:text-text transition-colors">FAQ</a></li>
+        <li>
+          <a
+            href="#contact"
+            class="px-6 py-2.5 bg-accent text-bg rounded-full text-[0.82rem] font-semibold tracking-wide hover:bg-accent-l hover:-translate-y-px transition-all"
+          >
+            Discuter de votre projet
+          </a>
+        </li>
+      </ul>
+
+      <button
+        class="flex lg:hidden flex-col justify-between w-7 h-5 bg-transparent border-none cursor-pointer"
+        aria-label="Menu"
+        id="mobile-toggle"
+      >
+        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
+        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
+        <span class="block h-0.5 w-full bg-text rounded-sm"></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  nav.scrolled {
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-bdr);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+</style>

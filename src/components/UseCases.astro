@@ -1,0 +1,24 @@
+---
+import site from '@/content/site.json';
+const { useCases } = site;
+---
+
+<section class="py-32 bg-bg-el" id="cas-usage">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{useCases.tag}</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">{useCases.title}</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{useCases.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mt-16">
+      {useCases.cases.map((uc: { icon: string; title: string; text: string }) => (
+        <article class="gs-reveal p-8 px-6 bg-bg-card border border-bdr rounded-[14px] text-center transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
+          <div class="w-12 h-12 mx-auto mb-5 flex items-center justify-center text-3xl">{uc.icon}</div>
+          <h3 class="text-[0.95rem] font-medium text-wh mb-1">{uc.title}</h3>
+          <p class="text-[0.78rem] text-text-m leading-normal">{uc.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

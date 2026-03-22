@@ -1,0 +1,18 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.associations": {
+    "*.astro": "astro"
+  },
+  "tailwindCSS.includeLanguages": {
+    "astro": "html"
+  },
+  "emmet.includeLanguages": {
+    "astro": "html"
+  },
+  "css.validate": false,
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "title": "4D-Scope · Borne immersive VR pour musées, villes et sites culturels | Belgique & France",
+    "description": "4D-Scope conçoit et fabrique Mira, la borne de réalité virtuelle libre-service la plus robuste du marché. Reconstitutions historiques, panoramas 360° et projections immersives pour musées, villes et sites touristiques en Belgique et en France.",
+    "url": "https://4d-scope.com",
+    "locale": "fr_BE"
+  },
+  "hero": {
+    "badge": "Nouveau · Mira V3 en production, livraison 2026",
+    "title": "Montrez",
+    "titleAccent": "l'invisible.",
+    "subtitle": "4D-Scope conçoit la borne immersive VR la plus robuste du marché. Un dispositif libre-service qui transforme n'importe quel lieu en expérience immersive, pour les musées, les villes et les sites culturels.",
+    "keywords": ["Reconstitutions historiques", "Panoramas 360°", "Projections urbaines", "Patrimoine augmenté"],
+    "cta": "Discuter de votre projet",
+    "ctaSecondary": "Explorer les cas d'usage"
+  },
+  "trust": {
+    "label": "Bornes immersives en fonctionnement continu",
+    "sites": [
+      { "name": "Archéoforum", "location": "Liège, Belgique" },
+      { "name": "Grand Curtius", "location": "Liège, Belgique" },
+      { "name": "Porte de Hal", "location": "Bruxelles, Belgique" },
+      { "name": "Louvre Lens Vallée", "location": "France · Partenaire" }
+    ]
+  },
+  "process": {
+    "tag": "Processus",
+    "title": "Du lieu à l'immersion.",
+    "subtitle": "Trois étapes pour déployer une borne de réalité virtuelle sur votre site culturel ou touristique.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Créer ou capturer le contenu",
+        "text": "Panoramas 360°, reconstitutions en CGI ou recréations historiques. Apportez votre propre contenu immersif ou laissez notre équipe produire une expérience sur mesure."
+      },
+      {
+        "num": "02",
+        "title": "Déployer le dispositif",
+        "text": "Encastré dans le sol ou posé sur une estrade autonome. Intérieur ou extérieur, la borne Mira s'installe en quelques heures et fonctionne de manière totalement autonome."
+      },
+      {
+        "num": "03",
+        "title": "Les visiteurs explorent",
+        "text": "Libre-service, intuitif, accessible à tous les âges. Le visiteur approche, regarde dans le viseur, et voyage dans le temps. Aucun personnel requis, aucune file d'attente."
+      }
+    ]
+  },
+  "stats": [
+    { "value": "4+", "label": "Années d'utilisation intensive en conditions réelles" },
+    { "value": "3", "label": "Installations actives en fonctionnement continu" },
+    { "value": "5 ans", "label": "Garantie structurelle sur chaque borne" },
+    { "value": "V3", "label": "Troisième génération en production 2026" }
+  ],
+  "useCases": {
+    "tag": "Applications",
+    "title": "Une borne VR pour chaque contexte patrimonial.",
+    "subtitle": "Partout où un lieu a une histoire à raconter, passé, présent ou futur.",
+    "cases": [
+      { "icon": "🏛️", "title": "Musées", "text": "Reconstitutions historiques et expositions immersives" },
+      { "icon": "🏙️", "title": "Villes et territoires", "text": "Projections urbaines passé / présent / futur" },
+      { "icon": "🏔️", "title": "Tourisme", "text": "Points de vue panoramiques et circuits patrimoniaux" },
+      { "icon": "🏗️", "title": "Immobilier et génie civil", "text": "Visualisation de projets futurs sur site" },
+      { "icon": "🎪", "title": "Événements", "text": "Activations immersives temporaires et itinérantes" }
+    ]
+  },
+  "differentiator": {
+    "tag": "Pourquoi 4D-Scope",
+    "title": "Construit pour le réel. Pas pour les vitrines.",
+    "subtitle": "Quand d'autres investissent dans le marketing, nous investissons dans l'ingénierie. Chaque décision sert un fonctionnement public, autonome et pérenne.",
+    "points": [
+      {
+        "title": "Robustesse industrielle, pas cosmétique",
+        "text": "Aluminium, acier inoxydable, polyamide renforcé carbone. Pas un habillage en tôle, mais une structure pensée pour encaisser l'usage quotidien intensif pendant des années."
+      },
+      {
+        "title": "Flexibilité totale d'installation",
+        "text": "Encastré, sur estrade, intérieur, extérieur, fixe ou mobile. Sols classés, terrains rocheux, sous-sols archéologiques : nous nous adaptons."
+      },
+      {
+        "title": "Liberté totale sur le contenu",
+        "text": "Aucune plateforme propriétaire. Pas de redevance par visionnage. Vous gardez le contrôle de votre contenu : 360°, CGI, vidéo, le format est libre."
+      },
+      {
+        "title": "Pas de monnayeur. L'immersion, pas le péage.",
+        "text": "Nous déconseillons le paiement par visionnage. L'expérience doit être fluide et incluse dans le billet de visite. Moins de friction, plus de satisfaction."
+      },
+      {
+        "title": "Ingénierie et production belges",
+        "text": "Conçu, fabriqué et assemblé en Belgique. Relation directe avec l'équipe qui construit et maintient votre dispositif, pas de sous-traitance opaque."
+      }
+    ],
+    "comparison": [
+      { "feature": "Matériaux structure", "us": "Alu + inox + carbone", "them": "Acier inoxydable" },
+      { "feature": "Poids", "us": "25 kg", "them": "190 kg" },
+      { "feature": "Hauteur ajustable", "us": "1,20 m → 1,90 m", "them": "Fixe" },
+      { "feature": "Liberté contenu", "us": "Totale, aucun lock-in", "them": "Plateforme propriétaire" },
+      { "feature": "Monnayeur", "us": "Non (par choix UX)", "them": "Oui" },
+      { "feature": "Garantie structure", "us": "5 ans", "them": "Non communiquée" },
+      { "feature": "Encastrement possible", "us": "Oui", "them": "Non" },
+      { "feature": "Fabrication", "us": "Belgique 🇧🇪", "them": "France" }
+    ]
+  },
+  "faq": [
+    {
+      "q": "Qu'est-ce qu'une borne immersive 4D-Scope ?",
+      "a": "Mira by 4D-Scope est une borne de réalité virtuelle libre-service conçue pour les musées, villes et sites culturels. Elle permet aux visiteurs de découvrir des reconstitutions historiques, des panoramas 360° et des projections immersives en toute autonomie, sans personnel dédié."
+    },
+    {
+      "q": "La borne peut-elle être installée en extérieur ?",
+      "a": "Oui. Avec le kit d'étanchéité, le système de climatisation et l'auvent pare-soleil, Mira fonctionne en extérieur 365 jours par an, de jour comme de nuit. Elle résiste aux intempéries, à l'humidité et à la poussière."
+    },
+    {
+      "q": "Quelle différence entre Borne seule et Expérience complète ?",
+      "a": "La Borne seule inclut le dispositif Mira, l'installation et 2 ans de maintenance. Vous intégrez votre contenu. L'Expérience complète ajoute la production sur mesure d'un contenu immersif (360°, CGI, reconstitution historique) et le conseil en scénographie."
+    },
+    {
+      "q": "Où sont fabriquées les bornes 4D-Scope ?",
+      "a": "Les bornes Mira sont conçues, fabriquées et assemblées en Belgique. Seuls les composants électroniques (casque VR PICO) sont d'origine externe. Vous bénéficiez d'une relation directe avec l'équipe de conception et de maintenance."
+    },
+    {
+      "q": "La borne est-elle accessible aux enfants et PMR ?",
+      "a": "La colonne télescopique s'adapte de 1,20 m à 1,90 m. Une margelle rétractable de 20 cm est disponible pour les enfants en bas âge. Une version PMR suspendue est en développement pour les personnes en fauteuil roulant."
+    },
+    {
+      "q": "Quelle est la durée de garantie ?",
+      "a": "Garantie structurelle de 5 ans (hors pièces d'usure). Maintenance de 2 ans incluse avec entretien annuel et grosse révision. Extensions de maintenance annuelles disponibles."
+    }
+  ],
+  "cta": {
+    "tag": "Commencer",
+    "title": "Donnez vie à votre",
+    "titleAccent": "site.",
+    "subtitle": "Concevons ensemble une expérience immersive adaptée à votre lieu, votre public et votre histoire.",
+    "primary": "Discuter de votre projet",
+    "secondary": "Télécharger la fiche technique",
+    "email": "contact@4d-scope.com"
+  }
+}

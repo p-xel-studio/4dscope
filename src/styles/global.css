@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-bg-el: #101212;
+  --color-bg-card: #151717;
+  --color-bg-card-h: #1a1d1d;
+  --color-text: #e0e4e3;
+  --color-text-m: #828a88;
+  --color-text-d: #515957;
+  --color-accent: #5aaa96;
+  --color-accent-l: #74c4ae;
+  --color-accent-d: #2e6e5e;
+  --color-bdr: #1e2222;
+  --color-bdr-l: #282d2d;
+  --color-wh: #f4f6f5;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, sans-serif;
+}
+
+/* Base reset */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(90, 170, 150, 0.25);
+  color: var(--color-wh);
+}
+
+/* GSAP reveal class */
+.gs-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+.gs-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

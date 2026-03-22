@@ -1,0 +1,37 @@
+{
+  "tag": "Spécifications techniques",
+  "title": "La borne VR conçue pour l'usage public intensif.",
+  "subtitle": "Chaque détail est pensé pour un fonctionnement autonome, robuste et continu en environnement réel.",
+  "items": [
+    {
+      "icon": "rotate",
+      "title": "Rotation 180° à 350°",
+      "text": "Rotation horizontale quasi complète avec inclinaison verticale de ±45°. Exploration naturelle du panorama immersif, sans friction mécanique."
+    },
+    {
+      "icon": "height",
+      "title": "Hauteur ajustable",
+      "text": "Colonne télescopique pour utilisateurs de 1,20 m à 1,90 m. Margelle enfants optionnelle (+20 cm). Version PMR suspendue en développement."
+    },
+    {
+      "icon": "shield",
+      "title": "Anti-vandalisme",
+      "text": "Renforts acier inoxydable, structure aluminium, boîtier polyamide renforcé carbone. Résiste aux cars scolaires, à l'humidité et à la poussière."
+    },
+    {
+      "icon": "weather",
+      "title": "Intérieur et extérieur",
+      "text": "Kit d'étanchéité, climatisation et auvent pare-soleil en option. Fonctionnement extérieur 365 j/an, de jour comme de nuit."
+    },
+    {
+      "icon": "battery",
+      "title": "Système autonome",
+      "text": "Batterie de secours, détection de présence automatique, mise en veille intelligente. Aucun personnel dédié, aucune intervention quotidienne."
+    },
+    {
+      "icon": "globe",
+      "title": "Suivi à distance",
+      "text": "Connectivité 4G/5G optionnelle. Diagnostic temps réel, redémarrage à distance, mise à jour du contenu. Interventions sur site réduites au minimum."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+---
+import site from '@/content/site.json';
+const { cta } = site;
+---
+
+<section class="relative py-40 text-center overflow-hidden" id="contact">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(90,170,150,0.12)_0%,transparent_70%)]"></div>
+
+  <div class="relative z-10 max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{cta.tag}</div>
+      <h2 class="font-serif text-[clamp(2.5rem,5vw,4rem)] font-medium leading-tight text-wh max-w-[700px] mx-auto mb-4">
+        {cta.title} <em class="italic text-accent font-serif">{cta.titleAccent}</em>
+      </h2>
+      <p class="text-[1.05rem] text-text-m max-w-[520px] mx-auto leading-relaxed font-light mb-12">{cta.subtitle}</p>
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href={`mailto:${cta.email}`} class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all">
+          {cta.primary}
+          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all">
+          {cta.secondary}
+          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M8 2v9m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

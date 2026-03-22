@@ -1,0 +1,55 @@
+---
+import site from '@/content/site.json';
+const { faq } = site;
+---
+
+<section class="py-32 bg-bg-el" id="faq">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">Questions fréquentes</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">Tout savoir sur la borne immersive Mira.</h2>
+    </div>
+
+    <div class="gs-reveal max-w-[800px] mx-auto mt-12 flex flex-col gap-3">
+      {faq.map((item: { q: string; a: string }) => (
+        <div class="faq-item bg-bg-card border border-bdr rounded-xl overflow-hidden">
+          <button
+            class="faq-toggle w-full flex justify-between items-center px-7 py-5 text-left text-[0.95rem] font-medium text-wh cursor-pointer hover:text-accent transition-colors bg-transparent border-none"
+            aria-expanded="false"
+          >
+            {item.q}
+            <svg class="faq-icon flex-shrink-0 w-5 h-5 text-text-d transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14" />
+            </svg>
+          </button>
+          <div class="faq-answer max-h-0 overflow-hidden transition-[max-height] duration-400 ease-in-out">
+            <p class="px-7 pb-5 text-[0.88rem] text-text-m leading-relaxed">{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item.open .faq-icon {
+    transform: rotate(45deg);
+    color: var(--color-accent);
+  }
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      if (item) {
+        item.classList.toggle('open');
+        const expanded = item.classList.contains('open');
+        btn.setAttribute('aria-expanded', String(expanded));
+      }
+    });
+  });
+</script>

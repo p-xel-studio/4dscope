@@ -1,0 +1,18 @@
+---
+import site from '@/content/site.json';
+const { trust } = site;
+---
+
+<section class="py-20 border-t border-b border-bdr" aria-label="Sites de référence">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <p class="text-center text-[0.75rem] tracking-[0.15em] uppercase text-text-d mb-10">{trust.label}</p>
+    <div class="flex items-center justify-center gap-16 flex-wrap">
+      {trust.sites.map((s: { name: string; location: string }) => (
+        <div class="text-center">
+          <div class="font-serif text-[1.15rem] text-text mb-0.5">{s.name}</div>
+          <div class="text-[0.78rem] text-text-d tracking-wide">{s.location}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

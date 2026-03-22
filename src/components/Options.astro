@@ -1,0 +1,23 @@
+---
+import options from '@/content/options.json';
+---
+
+<section class="py-32 bg-bg-el" id="options">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{options.tag}</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">{options.title}</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{options.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
+      {options.items.map((opt: { tag: string; title: string; text: string }) => (
+        <article class="gs-reveal p-7 bg-bg-card border border-bdr rounded-[14px] transition-all duration-300 hover:border-bdr-l">
+          <span class="inline-block px-2.5 py-1 bg-accent/10 border border-accent/15 rounded-md text-[0.68rem] tracking-[0.08em] uppercase text-accent mb-4">{opt.tag}</span>
+          <h3 class="text-[0.95rem] font-medium text-wh mb-1">{opt.title}</h3>
+          <p class="text-[0.82rem] text-text-m leading-relaxed">{opt.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

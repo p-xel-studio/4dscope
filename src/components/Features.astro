@@ -1,0 +1,36 @@
+---
+import features from '@/content/features.json';
+
+const iconPaths: Record<string, string> = {
+  rotate: 'M12 2v4m0 12v4M2 12h4m12 0h4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83',
+  height: 'M12 22V8m0 0l-4 4m4-4l4 4M5 2h14',
+  shield: 'M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM9 12l2 2 4-4',
+  weather: 'M3 15a4 4 0 004 4h9.5a3.5 3.5 0 00.5-6.965A6 6 0 005.022 13.5',
+  battery: 'M5 18H3a1 1 0 01-1-1V7a1 1 0 011-1h18a1 1 0 011 1v10a1 1 0 01-1 1h-2M7 18v-4h10v4',
+  globe: 'M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2a15 15 0 014 10 15 15 0 01-4 10A15 15 0 018 12 15 15 0 0112 2z',
+};
+---
+
+<section class="py-32 bg-bg-el" id="specifications">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{features.tag}</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">{features.title}</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{features.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      {features.items.map((feat: { icon: string; title: string; text: string }) => (
+        <article class="gs-reveal p-8 bg-bg-card border border-bdr rounded-[14px] transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
+          <div class="w-11 h-11 rounded-[10px] bg-accent/10 border border-accent/15 flex items-center justify-center mb-5 text-accent">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d={iconPaths[feat.icon] || iconPaths.globe} />
+            </svg>
+          </div>
+          <h3 class="text-base font-medium text-wh mb-2">{feat.title}</h3>
+          <p class="text-[0.85rem] text-text-m leading-relaxed">{feat.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

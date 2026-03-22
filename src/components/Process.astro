@@ -1,0 +1,25 @@
+---
+import site from '@/content/site.json';
+const { process } = site;
+---
+
+<section class="py-32 bg-bg" id="processus">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{process.tag}</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">{process.title}</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{process.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-16">
+      {process.steps.map((step: { num: string; title: string; text: string }) => (
+        <article class="gs-reveal group relative p-10 bg-bg-card border border-bdr rounded-2xl overflow-hidden transition-all duration-400 hover:border-bdr-l hover:bg-bg-card-h">
+          <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
+          <div class="font-serif text-5xl font-normal text-accent-d leading-none mb-6">{step.num}</div>
+          <h3 class="font-serif text-[1.3rem] text-wh mb-3 font-medium">{step.title}</h3>
+          <p class="text-[0.92rem] text-text-m leading-relaxed">{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

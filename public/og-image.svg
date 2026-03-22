@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <circle cx="540" cy="315" r="40" stroke="#5aaa96" stroke-width="3" fill="none"/>
+  <text x="540" y="328" text-anchor="middle" font-family="sans-serif" font-size="24" font-weight="600" fill="#5aaa96">4D</text>
+  <text x="620" y="325" font-family="sans-serif" font-size="28" font-weight="700" letter-spacing="3" fill="#e0e4e3">4D-SCOPE</text>
+  <text x="600" y="395" text-anchor="middle" font-family="serif" font-size="22" fill="#828a88" font-style="italic">Borne immersive VR pour musées et sites culturels</text>
+</svg>

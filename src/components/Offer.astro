@@ -1,0 +1,50 @@
+---
+import offer from '@/content/offer.json';
+---
+
+<section class="py-32 bg-bg" id="offre">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{offer.tag}</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">{offer.title}</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{offer.subtitle}</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16">
+      {offer.options.map((opt: { label: string; title: string; text: string; featured: boolean; includes: string[]; cta: string }) => (
+        <article class:list={[
+          'gs-reveal relative p-12 border rounded-[20px] transition-all duration-400 hover:bg-bg-card-h',
+          opt.featured
+            ? 'border-accent-d bg-gradient-to-br from-accent/10 to-bg-card hover:border-accent-d'
+            : 'border-bdr bg-bg-card hover:border-bdr-l'
+        ]}>
+          {opt.featured && (
+            <span class="absolute top-6 right-6 px-3 py-1 bg-accent text-bg text-[0.7rem] font-semibold tracking-wide rounded-full">Recommandé</span>
+          )}
+          <div class="text-[0.72rem] tracking-[0.12em] uppercase text-accent mb-3">{opt.label}</div>
+          <h3 class="font-serif text-[1.6rem] text-wh mb-4 font-medium">{opt.title}</h3>
+          <p class="text-[0.92rem] text-text-m mb-8 leading-relaxed">{opt.text}</p>
+          <ul class="flex flex-col gap-3 mb-10 list-none">
+            {opt.includes.map((item: string) => (
+              <li class="flex items-start gap-2.5 text-[0.88rem] text-text leading-normal">
+                <span class="flex-shrink-0 w-[18px] h-[18px] mt-0.5 rounded-full bg-accent/10 border border-accent/25 bg-[url('data:image/svg+xml,%3Csvg%20viewBox=%270%200%2016%2016%27%20fill=%27none%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath%20d=%27M4%208l3%203%205-5%27%20stroke=%27%235aaa96%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27/%3E%3C/svg%3E')] bg-[length:14px] bg-center bg-no-repeat"></span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="#contact"
+            class:list={[
+              'flex items-center justify-center gap-2 w-full py-4 rounded-full text-[0.9rem] font-medium tracking-wide transition-all hover:-translate-y-0.5',
+              opt.featured
+                ? 'bg-accent text-bg hover:bg-accent-l hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)]'
+                : 'bg-transparent text-text border border-bdr-l hover:border-text-m hover:bg-white/[0.03]'
+            ]}
+          >
+            {opt.cta}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

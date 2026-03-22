@@ -1,0 +1,137 @@
+---
+import '@/styles/global.css';
+import site from '@/content/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = site.meta.title,
+  description = site.meta.description,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="4D-Scope" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={site.meta.url} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={site.meta.url} />
+  <meta property="og:site_name" content="4D-Scope" />
+  <meta property="og:locale" content={site.meta.locale} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Schema.org : Organization -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "4D-Scope",
+    "url": site.meta.url,
+    "description": "Concepteur et fabricant belge de bornes immersives VR pour musées, villes et sites culturels",
+    "foundingDate": "2019",
+    "foundingLocation": "Belgique",
+    "areaServed": ["BE", "FR"]
+  })} />
+
+  <!-- Schema.org : Product -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Mira V3 by 4D-Scope",
+    "description": "Borne immersive VR libre-service pour musées, villes et sites culturels.",
+    "brand": { "@type": "Brand", "name": "4D-Scope" },
+    "manufacturer": { "@type": "Organization", "name": "4D-Scope", "address": { "@type": "PostalAddress", "addressCountry": "BE" } },
+    "weight": { "@type": "QuantitativeValue", "value": "25", "unitCode": "KGM" },
+    "offers": { "@type": "AggregateOffer", "priceCurrency": "EUR", "availability": "https://schema.org/PreOrder", "offerCount": "2" }
+  })} />
+
+  <!-- Schema.org : FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": site.faq.map((item: { q: string; a: string }) => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": { "@type": "Answer", "text": item.a }
+    }))
+  })} />
+</head>
+<body>
+  <slot />
+
+  <!-- GSAP + ScrollTrigger -->
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Reveal animations
+    document.querySelectorAll('.gs-reveal').forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            once: true,
+          },
+        }
+      );
+    });
+
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    if (nav) {
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
+        if (href) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+---
+import site from '@/content/site.json';
+const { hero } = site;
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24 px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
+  <!-- Background effects -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(90,170,150,0.05)_0%,transparent_70%),radial-gradient(ellipse_50%_80%_at_80%_20%,rgba(90,170,150,0.03)_0%,transparent_60%)]"></div>
+  <canvas id="hero-dots" class="absolute inset-0 w-full h-full" style="mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black, transparent 70%);"></canvas>
+
+  <div class="relative z-10 text-center max-w-[920px]">
+    <!-- Badge -->
+    <div class="gs-reveal inline-flex items-center gap-2 px-5 py-2 border border-accent-d rounded-full text-[0.78rem] tracking-wide text-accent mb-10">
+      <span class="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></span>
+      {hero.badge}
+    </div>
+
+    <!-- Title -->
+    <h1 class="gs-reveal font-serif text-[clamp(3rem,7vw,5.5rem)] font-medium leading-[1.05] tracking-tight text-wh mb-6">
+      {hero.title} <em class="italic text-accent">{hero.titleAccent}</em>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="gs-reveal text-[1.15rem] leading-relaxed text-text-m max-w-[640px] mx-auto mb-5 font-light" set:html={hero.subtitle.replace(
+      'borne immersive VR la plus robuste du marché',
+      '<strong class="font-medium text-text">borne immersive VR la plus robuste du marché</strong>'
+    )} />
+
+    <!-- Keywords -->
+    <p class="gs-reveal text-sm text-text-d mb-12">
+      {hero.keywords.map((kw: string, i: number) => (
+        <>{i > 0 && ' · '}<strong class="text-text-m font-normal">{kw}</strong></>
+      ))}
+    </p>
+
+    <!-- CTAs -->
+    <div class="gs-reveal flex gap-4 justify-center flex-wrap">
+      <a href="#contact" class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all">
+        {hero.cta}
+        <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#cas-usage" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all">
+        {hero.ctaSecondary}
+      </a>
+    </div>
+
+    <!-- Device visual -->
+    <div class="gs-reveal mt-20 relative">
+      <div class="w-full max-w-[800px] mx-auto aspect-video bg-bg-el border border-bdr rounded-2xl overflow-hidden relative flex items-center justify-center">
+        <div class="relative w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_60%_80%_at_50%_50%,rgba(90,170,150,0.12)_0%,transparent_70%)]">
+          <div class="w-[120px] opacity-60">
+            <svg viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="52" y="70" width="16" height="110" rx="8" fill="rgba(90,170,150,.15)" stroke="rgba(90,170,150,.3)" stroke-width="1"/>
+              <ellipse cx="60" cy="70" rx="30" ry="20" fill="rgba(90,170,150,.1)" stroke="rgba(90,170,150,.25)" stroke-width="1"/>
+              <rect x="38" y="50" width="44" height="30" rx="8" fill="rgba(90,170,150,.12)" stroke="rgba(90,170,150,.3)" stroke-width="1"/>
+              <circle cx="50" cy="62" r="6" fill="none" stroke="rgba(90,170,150,.4)" stroke-width="1"/>
+              <circle cx="70" cy="62" r="6" fill="none" stroke="rgba(90,170,150,.4)" stroke-width="1"/>
+              <rect x="30" y="178" width="60" height="4" rx="2" fill="rgba(90,170,150,.2)"/>
+            </svg>
+          </div>
+          <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-[0.72rem] tracking-[0.15em] uppercase text-text-d">
+            Mira V3 · Borne immersive VR par 4D-Scope
+          </div>
+        </div>
+
+        <!-- Floating stats -->
+        <div class="hidden lg:block absolute left-[-2rem] top-[30%] px-5 py-3 bg-bg-card/90 backdrop-blur-lg border border-bdr rounded-xl text-[0.78rem]">
+          <span class="block font-serif text-[1.4rem] text-accent mb-0.5">350°</span>
+          <span class="text-text-m">Rotation</span>
+        </div>
+        <div class="hidden lg:block absolute right-[-2rem] top-[50%] px-5 py-3 bg-bg-card/90 backdrop-blur-lg border border-bdr rounded-xl text-[0.78rem]">
+          <span class="block font-serif text-[1.4rem] text-accent mb-0.5">5 ans</span>
+          <span class="text-text-m">Garantie</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+
+  const canvas = document.getElementById('hero-dots') as HTMLCanvasElement;
+  if (canvas) {
+    const ctx = canvas.getContext('2d')!;
+    let width = 0;
+    let height = 0;
+    let cols = 0;
+    let rows = 0;
+    let spacing = 22;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile) spacing = 38;
+
+    const baseRadius = isMobile ? 1 : 1.2;
+    const accentR = 90, accentG = 170, accentB = 150;
+
+    // Mouse interaction
+    const mouse = { x: -9999, y: -9999 };
+    const mouseSmooth = { x: -9999, y: -9999 };
+    const mouseRadius = isMobile ? 0 : 120; // influence radius in px
+
+    if (!isMobile) {
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.addEventListener('mouseleave', () => {
+        mouse.x = -9999;
+        mouse.y = -9999;
+      });
+    }
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(width / spacing) + 1;
+      rows = Math.ceil(height / spacing) + 1;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    // Animation state
+    const state = { time: 0 };
+
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      const t = state.time;
+
+      // Smooth mouse tracking (lerp for fluid feel)
+      mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.15;
+      mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.15;
+
+      const mx = mouseSmooth.x;
+      const my = mouseSmooth.y;
+      const mr2 = mouseRadius * mouseRadius; // squared for perf
+
+      for (let row = 0; row < rows; row++) {
+        const y = row * spacing;
+        for (let col = 0; col < cols; col++) {
+          const x = col * spacing;
+
+          // Two overlapping sine waves for organic movement
+          const wave1 = Math.sin(x * 0.008 + t * 1.2) * Math.cos(y * 0.006 + t * 0.8);
+          const wave2 = Math.sin((x + y) * 0.005 + t * 0.6) * 0.5;
+          const combined = (wave1 + wave2) * 0.5 + 0.5; // normalize 0-1
+
+          let opacity = 0.06 + combined * 0.35;
+          let radius = baseRadius + combined * 0.8;
+
+          // Mouse proximity effect
+          const dx = x - mx;
+          const dy = y - my;
+          const dist2 = dx * dx + dy * dy;
+          if (dist2 < mr2) {
+            const proximity = 1 - Math.sqrt(dist2) / mouseRadius; // 1 at center, 0 at edge
+            const ease = proximity * proximity; // quadratic ease for smoother falloff
+            opacity += ease * 0.45;
+            radius += ease * 2.5;
+          }
+
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${accentR},${accentG},${accentB},${opacity})`;
+          ctx.fill();
+        }
+      }
+    }
+
+    // Use GSAP ticker for smooth 60fps animation
+    gsap.ticker.add(draw);
+
+    // Animate time continuously
+    gsap.to(state, {
+      time: 100,
+      duration: 100,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    // Cleanup on page navigation (Astro view transitions)
+    document.addEventListener('astro:before-swap', () => {
+      gsap.ticker.remove(draw);
+      window.removeEventListener('resize', resize);
+    });
+  }
+</script>

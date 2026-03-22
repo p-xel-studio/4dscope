@@ -1,0 +1,17 @@
+---
+import site from '@/content/site.json';
+const { stats } = site;
+---
+
+<section class="py-24 border-t border-b border-bdr" aria-label="Chiffres clés de 4D-Scope">
+  <div class="max-w-[1200px] mx-auto px-8">
+    <div class="gs-reveal grid grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map((stat: { value: string; label: string }) => (
+        <div class="text-center">
+          <div class="font-serif text-[clamp(2.5rem,4vw,3.5rem)] font-normal text-accent leading-none mb-2">{stat.value}</div>
+          <div class="text-[0.85rem] text-text-m leading-snug">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
