@@ -19,18 +19,30 @@ const iconPaths: Record<string, string> = {
       <p class="text-[1.05rem] text-text-m max-w-[560px] leading-relaxed font-light">{features.subtitle}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-      {features.items.map((feat: { icon: string; title: string; text: string }) => (
-        <article class="gs-reveal group p-8 bg-bg-card border border-bdr rounded-[14px] transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
-          <div class="w-11 h-11 rounded-[10px] bg-accent/10 border border-accent/15 flex items-center justify-center mb-5 text-accent transition-all duration-350 group-hover:bg-accent/20 group-hover:border-accent/30 group-hover:shadow-[0_0_16px_rgba(90,170,150,0.25)]">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d={iconPaths[feat.icon] || iconPaths.globe} />
-            </svg>
-          </div>
-          <h3 class="text-base font-medium text-wh mb-2">{feat.title}</h3>
-          <p class="text-[0.85rem] text-text-m leading-relaxed">{feat.text}</p>
-        </article>
-      ))}
+    <div class="flex gap-10 mt-16 items-center">
+      <!-- Mira product image -->
+      <div class="gs-reveal hidden lg:flex flex-shrink-0 justify-center">
+        <img src="/Mira_borne-02.webp" alt="Mira V3 vue de face" class="w-[280px] drop-shadow-[0_20px_50px_rgba(90,170,150,0.12)]" width="600" height="800" loading="lazy" />
+      </div>
+
+      <!-- Specs grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 flex-1">
+        {features.items.map((feat: { icon: string; title: string; text: string }) => (
+          <article class="gs-reveal group p-6 bg-bg-card border border-bdr rounded-[14px] transition-all duration-350 hover:border-accent-d hover:-translate-y-1">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-[10px] bg-accent/10 border border-accent/15 flex items-center justify-center flex-shrink-0 text-accent transition-all duration-350 group-hover:bg-accent/20 group-hover:border-accent/30 group-hover:shadow-[0_0_16px_rgba(90,170,150,0.25)]">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d={iconPaths[feat.icon] || iconPaths.globe} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-[0.92rem] font-medium text-wh mb-1">{feat.title}</h3>
+                <p class="text-[0.82rem] text-text-m leading-relaxed">{feat.text}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
