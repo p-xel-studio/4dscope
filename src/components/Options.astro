@@ -11,11 +11,22 @@ import options from '@/content/options.json';
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-16">
-      {options.items.map((opt: { tag: string; title: string; text: string }) => (
-        <article class="gs-reveal group p-7 bg-bg-card border border-bdr rounded-[14px] transition-all duration-300 hover:border-bdr-l">
-          <span class="inline-block px-2.5 py-1 bg-accent/10 border border-accent/15 rounded-md text-[0.68rem] tracking-[0.08em] uppercase text-accent mb-4 transition-all duration-300 group-hover:bg-accent/20 group-hover:border-accent/30 group-hover:shadow-[0_0_12px_rgba(90,170,150,0.2)]">{opt.tag}</span>
-          <h3 class="text-[0.95rem] font-medium text-wh mb-1">{opt.title}</h3>
-          <p class="text-[0.82rem] text-text-m leading-relaxed">{opt.text}</p>
+      {options.items.map((opt: { tag: string; title: string; text: string; image?: string }) => (
+        <article class="gs-reveal group bg-bg-card border border-bdr rounded-[14px] overflow-hidden transition-all duration-300 hover:border-bdr-l">
+          {opt.image ? (
+            <div class="aspect-[16/10] overflow-hidden">
+              <img src={opt.image} alt={opt.title} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" width="600" height="375" />
+            </div>
+          ) : (
+            <div class="aspect-[16/10] bg-gradient-to-br from-bg-el to-bg flex items-center justify-center">
+              <span class="text-text-d text-[0.75rem] tracking-wide">Photo à venir</span>
+            </div>
+          )}
+          <div class="p-6">
+            <span class="inline-block px-2.5 py-1 bg-accent/10 border border-accent/15 rounded-md text-[0.68rem] tracking-[0.08em] uppercase text-accent mb-3 transition-all duration-300 group-hover:bg-accent/20 group-hover:border-accent/30 group-hover:shadow-[0_0_12px_rgba(90,170,150,0.2)]">{opt.tag}</span>
+            <h3 class="text-[0.95rem] font-medium text-wh mb-1">{opt.title}</h3>
+            <p class="text-[0.82rem] text-text-m leading-relaxed">{opt.text}</p>
+          </div>
         </article>
       ))}
     </div>

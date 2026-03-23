@@ -3,11 +3,11 @@
   "title": "Configurez votre borne selon votre environnement.",
   "subtitle": "Chaque site est différent. Étendez Mira avec des accessoires conçus sur mesure.",
   "items": [
-    { "tag": "Protection", "title": "Kit d'étanchéité", "text": "Joints néoprène pour protection complète contre pluie, neige et écoulements. Indispensable en extérieur ou en sous-sol." },
-    { "tag": "Climat", "title": "Climatisation interne", "text": "Gestion climatique : humidité, dissipation de chaleur. Recommandé pour utilisation intensive continue ou forts deltas de température." },
-    { "tag": "Extérieur", "title": "Auvent pare-soleil", "text": "Obligatoire en extérieur sans ombre naturelle. Protège les optiques VR et abrite les utilisateurs en cas de précipitations." },
-    { "tag": "Accessibilité", "title": "Margelle enfants", "text": "Marche rétractable de 20 cm. Se replie à fleur de la colonne. Utilisation sous supervision adulte recommandée." },
-    { "tag": "Connectivité", "title": "Suivi 4G/5G", "text": "Diagnostic à distance, redémarrage et gestion du contenu. Réduit les temps de réponse et les déplacements." },
-    { "tag": "Contexte", "title": "Éléments didactiques", "text": "Signalétique, panneaux, écrans, maquettes. Guider le visiteur et démystifier le dispositif pour maximiser le taux d'usage." }
+    { "tag": "Protection", "title": "Kit d'étanchéité", "text": "Joints néoprène pour protection complète contre pluie, neige et écoulements. Indispensable en extérieur ou en sous-sol.", "image": "" },
+    { "tag": "Climat", "title": "Climatisation interne", "text": "Gestion climatique : humidité, dissipation de chaleur. Recommandé pour utilisation intensive continue ou forts deltas de température.", "image": "/opt_interieur.webp" },
+    { "tag": "Extérieur", "title": "Auvent pare-soleil", "text": "Obligatoire en extérieur sans ombre naturelle. Protège les optiques VR et abrite les utilisateurs en cas de précipitations.", "image": "/opt_auvent.webp" },
+    { "tag": "Accessibilité", "title": "Margelle enfants", "text": "Marche rétractable de 20 cm. Se replie à fleur de la colonne. Utilisation sous supervision adulte recommandée.", "image": "" },
+    { "tag": "Connectivité", "title": "Suivi 4G/5G", "text": "Diagnostic à distance, redémarrage et gestion du contenu. Réduit les temps de réponse et les déplacements.", "image": "/opt_bouton_start.webp" },
+    { "tag": "Contexte", "title": "Éléments didactiques", "text": "Signalétique, panneaux, écrans, maquettes. Guider le visiteur et démystifier le dispositif pour maximiser le taux d'usage.", "image": "/opt_didactique.webp" }
   ]
 }
