@@ -9,9 +9,9 @@ import site from '@/content/site.json';
     class="fixed top-0 left-0 right-0 z-50 px-8 py-5 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] bg-transparent"
   >
     <div class="max-w-[1400px] mx-auto flex items-center justify-between">
-      <!-- Mobile: burger left -->
+      <!-- Mobile: burger left — fixed width to balance layout -->
       <button
-        class="flex lg:hidden flex-col justify-between w-7 h-5 bg-transparent border-none cursor-pointer"
+        class="flex lg:hidden flex-col justify-between w-7 h-5 bg-transparent border-none cursor-pointer flex-shrink-0"
         aria-label="Ouvrir le menu"
         id="mobile-toggle"
       >
@@ -20,8 +20,8 @@ import site from '@/content/site.json';
         <span class="block h-0.5 w-full bg-text rounded-sm transition-transform duration-300 origin-center" id="burger-bot"></span>
       </button>
 
-      <!-- Logo -->
-      <a href="#" class="flex items-center no-underline group" aria-label="4D-Scope, accueil">
+      <!-- Logo — absolute center on mobile -->
+      <a href="#" class="flex items-center no-underline group lg:relative absolute left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0" aria-label="4D-Scope, accueil">
         <img src="/Logo_4D-Scope.svg" alt="4D-Scope" class="h-6" width="469" height="103" />
       </a>
 

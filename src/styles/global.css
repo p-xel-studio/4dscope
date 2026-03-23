@@ -49,3 +49,14 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Mobile card glow on scroll */
+@media (max-width: 1023px) {
+  .gs-reveal article {
+    transition: box-shadow 0.6s ease-out, border-color 0.6s ease-out;
+  }
+  .gs-reveal article.glow-in {
+    box-shadow: 0 0 25px rgba(90, 170, 150, 0.15), 0 0 60px rgba(90, 170, 150, 0.06);
+    border-color: rgba(90, 170, 150, 0.25);
+  }
+}

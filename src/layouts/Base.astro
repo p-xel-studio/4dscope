@@ -119,6 +119,20 @@ const {
       );
     });
 
+    // Mobile card glow on scroll
+    if (window.matchMedia('(max-width: 1023px)').matches) {
+      document.querySelectorAll('article').forEach((card) => {
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 80%',
+          onEnter: () => {
+            card.classList.add('glow-in');
+            setTimeout(() => card.classList.remove('glow-in'), 1200);
+          },
+        });
+      });
+    }
+
     // Nav scroll effect
     const nav = document.getElementById('nav');
     if (nav) {

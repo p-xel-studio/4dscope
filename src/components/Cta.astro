@@ -3,108 +3,153 @@ import site from '@/content/site.json';
 const { cta } = site;
 ---
 
-<section class="relative py-40 text-center overflow-hidden" id="contact">
+<section class="relative py-28 sm:py-40 overflow-hidden" id="contact">
   <!-- Animated flowing ribbons -->
   <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <!-- Large ribbon from bottom-left sweeping up-right -->
     <div class="cta-ribbon ribbon-1"></div>
     <div class="cta-ribbon ribbon-2"></div>
     <div class="cta-ribbon ribbon-3"></div>
-    <!-- Ambient glow beneath ribbons -->
     <div class="cta-glow glow-left"></div>
     <div class="cta-glow glow-right"></div>
   </div>
 
-  <div class="relative z-10 max-w-[1200px] mx-auto px-8">
-    <div class="gs-reveal">
-      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{cta.tag}</div>
-      <h2 class="font-serif text-[clamp(2.5rem,5vw,4rem)] font-medium leading-tight text-wh max-w-[700px] mx-auto mb-4">
-        {cta.title} <em class="italic text-accent font-serif">{cta.titleAccent}</em>
-      </h2>
-      <p class="text-[1.05rem] text-text-m max-w-[520px] mx-auto leading-relaxed font-light mb-12">{cta.subtitle}</p>
-      <div class="flex gap-4 justify-center flex-wrap">
-        <a href={`mailto:${cta.email}`} class="inline-flex items-center gap-2 px-8 py-4 bg-accent text-bg rounded-full text-[0.9rem] font-medium tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.2)] transition-all">
-          {cta.primary}
-          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#" class="inline-flex items-center gap-2 px-8 py-4 bg-transparent text-text border border-bdr-l rounded-full text-[0.9rem] font-medium tracking-wide hover:border-text-m hover:bg-white/[0.03] hover:-translate-y-0.5 transition-all">
-          {cta.secondary}
-          <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M8 2v9m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+  <div class="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
+      <!-- Left: headline -->
+      <div class="gs-reveal text-center lg:text-left lg:flex-1">
+        <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">{cta.tag}</div>
+        <h2 class="font-serif text-[clamp(2.2rem,5vw,3.8rem)] font-medium leading-tight text-wh mb-4">
+          {cta.title} <em class="italic text-accent font-serif">{cta.titleAccent}</em>
+        </h2>
+        <p class="text-[1.05rem] text-text-m max-w-[520px] mx-auto lg:mx-0 leading-relaxed font-light mb-8 lg:mb-10">{cta.subtitle}</p>
+        <div class="hidden lg:flex gap-6 text-[0.82rem] text-text-m">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.86 19.86 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.86 19.86 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.97.36 1.92.7 2.84a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.92.34 1.87.57 2.84.7A2 2 0 0122 16.92z"/></svg>
+            Réponse sous 48h
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Sans engagement
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: contact form -->
+      <div class="gs-reveal w-full max-w-[480px] lg:flex-shrink-0">
+        <form id="contact-form" class="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 space-y-5">
+          <!-- Name row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="prenom" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Prénom</label>
+              <input type="text" id="prenom" name="prenom" required autocomplete="given-name"
+                class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text placeholder:text-text-d outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all"
+                placeholder="Jean" />
+            </div>
+            <div>
+              <label for="nom" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Nom</label>
+              <input type="text" id="nom" name="nom" required autocomplete="family-name"
+                class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text placeholder:text-text-d outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all"
+                placeholder="Dupont" />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Email professionnel</label>
+            <input type="email" id="email" name="email" required autocomplete="email"
+              class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text placeholder:text-text-d outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all"
+              placeholder="jean@institution.be" />
+          </div>
+
+          <!-- Organization -->
+          <div>
+            <label for="organisation" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Organisation</label>
+            <input type="text" id="organisation" name="organisation" autocomplete="organization"
+              class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text placeholder:text-text-d outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all"
+              placeholder="Musée, ville, office du tourisme..." />
+          </div>
+
+          <!-- Project type -->
+          <div>
+            <label for="projet" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Type de projet</label>
+            <select id="projet" name="projet"
+              class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all appearance-none cursor-pointer"
+              style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23828a88' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E&quot;); background-repeat: no-repeat; background-position: right 14px center;">
+              <option value="" class="bg-bg-card text-text-m">Sélectionner</option>
+              <option value="musee" class="bg-bg-card">Musée ou site culturel</option>
+              <option value="ville" class="bg-bg-card">Ville ou territoire</option>
+              <option value="tourisme" class="bg-bg-card">Tourisme et patrimoine</option>
+              <option value="immobilier" class="bg-bg-card">Immobilier ou génie civil</option>
+              <option value="evenement" class="bg-bg-card">Événement temporaire</option>
+              <option value="autre" class="bg-bg-card">Autre</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-[0.75rem] text-text-m mb-1.5 tracking-wide">Votre projet en quelques mots</label>
+            <textarea id="message" name="message" rows="3"
+              class="w-full px-4 py-3 bg-white/[0.04] border border-white/[0.08] rounded-xl text-[0.88rem] text-text placeholder:text-text-d outline-none focus:border-accent/40 focus:bg-white/[0.06] transition-all resize-none"
+              placeholder="Décrivez brièvement votre lieu, votre besoin ou votre idée..."></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit"
+            class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-bg rounded-xl text-[0.9rem] font-semibold tracking-wide hover:bg-accent-l hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(90,170,150,0.25)] active:translate-y-0 transition-all">
+            {cta.primary}
+            <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <p class="text-[0.68rem] text-text-d text-center leading-relaxed">
+            En soumettant ce formulaire, vous acceptez d'être contacté par 4D-Scope concernant votre projet. Aucune donnée n'est partagée avec des tiers.
+          </p>
+        </form>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Elongated ribbon shapes — NOT circles */
   .cta-ribbon {
     position: absolute;
     will-change: transform;
     pointer-events: none;
   }
 
-  /* Ribbon 1 — large, sweeps from bottom-left to upper-right */
   .ribbon-1 {
     width: 120%;
     height: 180px;
     left: -20%;
     bottom: 15%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(60, 200, 160, 0.25) 20%,
-      rgba(90, 170, 150, 0.4) 45%,
-      rgba(70, 190, 175, 0.35) 55%,
-      rgba(80, 180, 190, 0.2) 80%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, rgba(60,200,160,0.25) 20%, rgba(90,170,150,0.4) 45%, rgba(70,190,175,0.35) 55%, rgba(80,180,190,0.2) 80%, transparent 100%);
     filter: blur(40px);
     border-radius: 40% 60% 50% 50%;
-    transform-origin: center center;
     animation: ribbonSweep1 16s ease-in-out infinite alternate;
   }
 
-  /* Ribbon 2 — thinner, crosses ribbon 1 at an angle */
   .ribbon-2 {
     width: 110%;
     height: 100px;
     left: -10%;
     bottom: 30%;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(80, 190, 180, 0.15) 25%,
-      rgba(60, 210, 165, 0.35) 50%,
-      rgba(90, 170, 150, 0.2) 75%,
-      transparent 100%
-    );
+    background: linear-gradient(90deg, transparent 0%, rgba(80,190,180,0.15) 25%, rgba(60,210,165,0.35) 50%, rgba(90,170,150,0.2) 75%, transparent 100%);
     filter: blur(30px);
     border-radius: 50%;
     transform-origin: 30% 50%;
     animation: ribbonSweep2 20s ease-in-out infinite alternate;
   }
 
-  /* Ribbon 3 — subtle accent, sharper */
   .ribbon-3 {
     width: 100%;
     height: 60px;
     left: 0;
     top: 60%;
-    background: linear-gradient(
-      90deg,
-      transparent 5%,
-      rgba(116, 196, 174, 0.15) 30%,
-      rgba(90, 170, 150, 0.5) 50%,
-      rgba(116, 196, 174, 0.15) 70%,
-      transparent 95%
-    );
+    background: linear-gradient(90deg, transparent 5%, rgba(116,196,174,0.15) 30%, rgba(90,170,150,0.5) 50%, rgba(116,196,174,0.15) 70%, transparent 95%);
     filter: blur(15px);
     border-radius: 50%;
     animation: ribbonSweep3 12s ease-in-out infinite alternate;
   }
 
-  /* Ambient glow blobs — large and very soft */
   .cta-glow {
     position: absolute;
     border-radius: 50%;
@@ -113,26 +158,19 @@ const { cta } = site;
   }
 
   .glow-left {
-    width: 500px;
-    height: 500px;
-    left: -5%;
-    bottom: -10%;
-    background: radial-gradient(circle, rgba(60, 200, 160, 0.15) 0%, transparent 70%);
+    width: 500px; height: 500px; left: -5%; bottom: -10%;
+    background: radial-gradient(circle, rgba(60,200,160,0.15) 0%, transparent 70%);
     filter: blur(60px);
     animation: glowPulse1 14s ease-in-out infinite alternate;
   }
 
   .glow-right {
-    width: 450px;
-    height: 450px;
-    right: -5%;
-    top: -10%;
-    background: radial-gradient(circle, rgba(80, 180, 190, 0.12) 0%, transparent 70%);
+    width: 450px; height: 450px; right: -5%; top: -10%;
+    background: radial-gradient(circle, rgba(80,180,190,0.12) 0%, transparent 70%);
     filter: blur(60px);
     animation: glowPulse2 18s ease-in-out infinite alternate;
   }
 
-  /* Ribbon animations — large sweeping transforms */
   @keyframes ribbonSweep1 {
     0%   { transform: translateX(-5%) translateY(20px) rotate(-3deg) scaleY(1); }
     50%  { transform: translateX(3%) translateY(-30px) rotate(2deg) scaleY(1.4); }
