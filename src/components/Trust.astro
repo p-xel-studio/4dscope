@@ -11,12 +11,14 @@ const logos = [
   { src: '/University_of_Liege_logo.svg', alt: 'Université de Liège', name: 'ULiège', location: 'Liège', bright: false },
   { src: '/liege.png', alt: 'Ville de Liège', name: 'Ville de Liège', location: 'Liège', bright: 'extra' },
   { src: '/tresor.png', alt: 'Trésor de Liège', name: 'Trésor de Liège', location: 'Liège', bright: true },
+  { src: '/Logo_DODS.png', alt: 'D.O. Design Studio', name: 'D.O. Design Studio', location: 'Belgique', bright: false },
+  { src: '/P-XEL-STUDIO_LOGO.png', alt: 'P-XEL Studio', name: 'P-XEL Studio', location: 'Liège', bright: true },
 ];
 ---
 
 <section class="py-20 border-t border-b border-bdr" aria-label="Sites de référence">
   <div class="max-w-[1200px] mx-auto px-8">
-    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 lg:gap-10">
+    <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-6 lg:gap-8">
       {logos.map((logo) => (
         <div class="flex flex-col items-center gap-2.5 group">
           <img
