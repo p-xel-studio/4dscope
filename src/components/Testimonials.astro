@@ -1,0 +1,59 @@
+---
+const testimonials = [
+  {
+    quote: "À compléter avec une citation de l'Archéoforum",
+    name: "Responsable à confirmer",
+    role: "Archéoforum de Liège",
+    placeholder: true
+  },
+  {
+    quote: "À compléter avec une citation du Grand Curtius ou de la Ville de Liège",
+    name: "Responsable à confirmer",
+    role: "Ville de Liège",
+    placeholder: true
+  },
+  {
+    quote: "À compléter avec une citation de la Porte de Hal",
+    name: "Responsable à confirmer",
+    role: "Porte de Hal, Bruxelles",
+    placeholder: true
+  }
+];
+---
+
+<section class="py-28 bg-bg" aria-label="Témoignages clients">
+  <div class="max-w-[1200px] mx-auto px-5 sm:px-8">
+    <div class="gs-reveal text-center mb-16">
+      <div class="inline-flex items-center gap-2.5 text-[0.72rem] tracking-[0.18em] uppercase text-accent mb-6 before:content-[''] before:w-6 before:h-px before:bg-accent">Témoignages</div>
+      <h2 class="font-serif text-[clamp(2rem,4vw,3.2rem)] font-medium leading-tight text-wh mb-4">Ce qu'en disent nos partenaires.</h2>
+      <p class="text-[1.05rem] text-text-m max-w-[560px] mx-auto leading-relaxed font-light">Des institutions publiques qui nous font confiance au quotidien.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <article class:list={["gs-reveal relative p-8 bg-bg-card border border-bdr rounded-2xl", t.placeholder && "opacity-40"]}>
+          <svg class="w-8 h-8 text-accent/30 mb-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z" />
+          </svg>
+          <blockquote class="text-[0.95rem] text-text leading-relaxed mb-6 italic">
+            "{t.quote}"
+          </blockquote>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent text-[0.75rem] font-bold">
+              {t.name.charAt(0)}
+            </div>
+            <div>
+              <div class="text-[0.85rem] text-wh font-medium">{t.name}</div>
+              <div class="text-[0.75rem] text-text-m">{t.role}</div>
+            </div>
+          </div>
+          {t.placeholder && (
+            <div class="absolute inset-0 flex items-center justify-center bg-bg-card/80 rounded-2xl">
+              <span class="text-[0.82rem] text-accent px-4 py-2 border border-accent/20 rounded-full">En attente de validation</span>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

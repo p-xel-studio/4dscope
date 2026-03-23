@@ -1,0 +1,480 @@
+---
+import site from '@/content/site.json';
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiche technique · Mira V3 by 4D-Scope</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #5aaa96;
+      --accent-light: #74c4ae;
+      --bg: #0a0a0a;
+      --bg-card: #151717;
+      --text: #e0e4e3;
+      --text-m: #828a88;
+      --text-d: #515957;
+      --bdr: #1e2222;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 48px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .header-left h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .header-left .subtitle {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .header-right {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--text-m);
+      line-height: 1.6;
+    }
+
+    .header-right .brand {
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(90, 170, 150, 0.15);
+      letter-spacing: 0.02em;
+    }
+
+    /* Specs table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .specs-table tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .specs-table tr:last-child { border-bottom: none; }
+
+    .specs-table td {
+      padding: 10px 0;
+      font-size: 0.88rem;
+      vertical-align: top;
+    }
+
+    .specs-table td:first-child {
+      width: 45%;
+      color: var(--text-m);
+      font-weight: 400;
+    }
+
+    .specs-table td:last-child {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .specs-table .highlight td:last-child {
+      color: var(--accent);
+    }
+
+    /* Description text */
+    .desc {
+      font-size: 0.88rem;
+      color: var(--text-m);
+      line-height: 1.7;
+      max-width: 720px;
+    }
+
+    /* Two columns */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    /* Options list */
+    .options-list {
+      list-style: none;
+    }
+
+    .options-list li {
+      padding: 8px 0;
+      font-size: 0.85rem;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .options-list li::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .options-list li span {
+      color: var(--text-m);
+      font-weight: 300;
+    }
+
+    /* Offers */
+    .offer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .offer-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .offer-card .offer-tag {
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .offer-card ul {
+      list-style: none;
+    }
+
+    .offer-card ul li {
+      font-size: 0.82rem;
+      color: var(--text-m);
+      padding: 4px 0;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .offer-card ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--bdr);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-d);
+    }
+
+    .footer .contact {
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .footer .contact a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Print */
+    @media print {
+      body { background: white; color: #1a1a1a; }
+      .page { padding: 20px 0; }
+      .header { border-bottom-color: #ddd; }
+      .section-title { color: #2e6e5e; border-bottom-color: #ddd; }
+      .specs-table tr { border-bottom-color: #eee; }
+      .specs-table td:first-child { color: #666; }
+      .specs-table td:last-child { color: #1a1a1a; }
+      .specs-table .highlight td:last-child { color: #2e6e5e; }
+      .offer-card { background: #f8f8f8; border-color: #ddd; }
+      .offer-card h4 { color: #1a1a1a; }
+      .desc { color: #444; }
+      .options-list li { color: #1a1a1a; }
+      .options-list li span { color: #666; }
+      .options-list li::before { background: #2e6e5e; }
+      .offer-card ul li { color: #444; }
+      .offer-card ul li::before { color: #2e6e5e; }
+      .footer { border-top-color: #ddd; color: #999; }
+      .footer .contact a { color: #2e6e5e; }
+      .header-left .subtitle { color: #2e6e5e; }
+      .header-right { color: #666; }
+      .header-right .brand { color: #1a1a1a; }
+
+      .no-print { display: none !important; }
+      @page { margin: 1.5cm; }
+    }
+
+    /* Print/download button */
+    .download-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .download-bar a {
+      color: var(--text-m);
+      text-decoration: none;
+      font-size: 0.82rem;
+    }
+
+    .download-bar button {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .download-bar button:hover {
+      background: var(--accent-light);
+    }
+  </style>
+</head>
+<body>
+  <!-- Download bar -->
+  <div class="download-bar no-print">
+    <a href="/">← Retour au site</a>
+    <button onclick="window.print()">Télécharger en PDF</button>
+  </div>
+
+  <div class="page" style="margin-top: 56px;">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <h1>Mira V3</h1>
+        <div class="subtitle">Borne immersive VR libre-service</div>
+      </div>
+      <div class="header-right">
+        <div class="brand">4D-SCOPE</div>
+        Fiche technique produit<br />
+        Édition 2026 · v3.0
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="section">
+      <p class="desc">
+        Mira est une borne de réalité virtuelle libre-service conçue pour les musées, villes et sites culturels.
+        Robuste, autonome et adaptable, elle transforme n'importe quel lieu en point d'immersion accessible à tous les publics,
+        sans personnel dédié. Conçue, fabriquée et assemblée en Belgique.
+      </p>
+    </div>
+
+    <!-- Specs principales -->
+    <div class="section">
+      <div class="section-title">Spécifications mécaniques</div>
+      <table class="specs-table">
+        <tr class="highlight"><td>Rotation horizontale</td><td>180° à 350°</td></tr>
+        <tr class="highlight"><td>Inclinaison verticale</td><td>-45° à +45°</td></tr>
+        <tr><td>Hauteur utilisateurs</td><td>1,20 m à 1,90 m (colonne télescopique)</td></tr>
+        <tr><td>Poids</td><td>25 kg</td></tr>
+        <tr><td>Installation</td><td>Encastrement sol (20 cm) ou estrade autonome</td></tr>
+        <tr><td>Usage</td><td>Intérieur et extérieur (avec options)</td></tr>
+      </table>
+    </div>
+
+    <!-- Matériaux -->
+    <div class="section">
+      <div class="section-title">Matériaux et construction</div>
+      <table class="specs-table">
+        <tr><td>Colonne</td><td>Structure aluminium, renforts acier inoxydable</td></tr>
+        <tr><td>Boîtier casque</td><td>Polyamide renforcé aluminium ou carbone</td></tr>
+        <tr><td>Équilibrage</td><td>Système d'équilibrage de charge intégré</td></tr>
+        <tr><td>Finitions colonne</td><td>Laque haute résistance (coloris personnalisable)</td></tr>
+        <tr><td>Finitions casque</td><td>Sablage, anodisation ou laquage (au choix)</td></tr>
+        <tr><td>Estrade (option)</td><td>Acier, tablier aluminium larmé, pieds réglables</td></tr>
+      </table>
+    </div>
+
+    <!-- Casque VR -->
+    <div class="section">
+      <div class="section-title">Casque VR intégré · PICO G3</div>
+      <div class="two-col">
+        <table class="specs-table">
+          <tr><td>Processeur</td><td>Qualcomm XR2, 8 coeurs, 2,84 GHz</td></tr>
+          <tr><td>RAM</td><td>6 Go LPDDR4x</td></tr>
+          <tr><td>Stockage</td><td>128 Go UFS 3.1</td></tr>
+          <tr><td>SE</td><td>Android 10</td></tr>
+        </table>
+        <table class="specs-table">
+          <tr><td>Résolution</td><td>3 664 × 1 920 (773 PPP)</td></tr>
+          <tr><td>Champ de vision</td><td>98°</td></tr>
+          <tr><td>Rafraîchissement</td><td>72 Hz / 90 Hz</td></tr>
+          <tr><td>Connectivité</td><td>Wi-Fi 6, Bluetooth 5.1</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Système -->
+    <div class="section">
+      <div class="section-title">Système et autonomie</div>
+      <table class="specs-table">
+        <tr><td>Alimentation</td><td>Autonome avec batterie de secours</td></tr>
+        <tr><td>Démarrage</td><td>Détection de présence automatique</td></tr>
+        <tr><td>Mise en veille</td><td>Intelligente, économie d'énergie</td></tr>
+        <tr><td>Connectivité (option)</td><td>4G/5G pour diagnostic et contrôle à distance</td></tr>
+        <tr><td>Sécurité</td><td>Anti-vol, anti-altération, composants remplaçables</td></tr>
+      </table>
+    </div>
+
+    <!-- Garantie -->
+    <div class="section">
+      <div class="section-title">Garantie et maintenance</div>
+      <table class="specs-table">
+        <tr class="highlight"><td>Garantie structure</td><td>5 ans (hors pièces d'usure)</td></tr>
+        <tr class="highlight"><td>Maintenance incluse</td><td>2 ans (entretien annuel + grosse révision)</td></tr>
+        <tr><td>Casque VR</td><td>Garantie constructeur 2 ans</td></tr>
+        <tr><td>Pièces d'usure</td><td>Remplacement recommandé entre 2 et 2,5 ans</td></tr>
+        <tr><td>Extension maintenance</td><td>Disponible en souscription annuelle</td></tr>
+        <tr><td>Fabrication</td><td>Belgique (hors composants électroniques)</td></tr>
+      </table>
+    </div>
+
+    <!-- Options -->
+    <div class="section">
+      <div class="section-title">Options et accessoires</div>
+      <ul class="options-list">
+        <li>Kit d'étanchéité <span>· Joints néoprène pour usage extérieur ou environnement humide</span></li>
+        <li>Climatisation du système <span>· Évacuation humidité, refroidissement, usage intensif</span></li>
+        <li>Margelle enfants (+20 cm) <span>· Rétractable, pour enfants en bas âge</span></li>
+        <li>Auvent pare-soleil <span>· Obligatoire en extérieur, protège les optiques</span></li>
+        <li>Module bouton "start" <span>· Interactivité naturelle, redémarrage animation</span></li>
+        <li>Connexion 4G/5G <span>· Surveillance et contrôle à distance</span></li>
+        <li>Estrade fixe ou mobile <span>· Pour sol non modifiable ou classé</span></li>
+        <li>Éléments didactiques <span>· Panneaux, écrans, maquettes, signalétique</span></li>
+        <li>Extension de maintenance <span>· Souscription annuelle après les 2 ans inclus</span></li>
+        <li>Casque VR de réserve <span>· Échange standard rapide en cas de panne</span></li>
+      </ul>
+    </div>
+
+    <!-- Offres -->
+    <div class="section">
+      <div class="section-title">Formules</div>
+      <div class="two-col">
+        <div class="offer-card">
+          <div class="offer-tag">Formule 1</div>
+          <h4>Borne seule</h4>
+          <ul>
+            <li>Borne Mira V3 + installation</li>
+            <li>Intégration contenu fourni par le client</li>
+            <li>Accessoires selon configuration</li>
+            <li>Maintenance 2 ans incluse</li>
+            <li>Garantie structure 5 ans</li>
+          </ul>
+        </div>
+        <div class="offer-card">
+          <div class="offer-tag">Formule 2</div>
+          <h4>Expérience complète</h4>
+          <ul>
+            <li>Borne Mira V3 + installation</li>
+            <li>Production contenu sur mesure</li>
+            <li>360°, CGI ou reconstitution historique</li>
+            <li>Conseil en scénographie</li>
+            <li>Maintenance 2 ans incluse</li>
+            <li>Garantie structure 5 ans</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenus -->
+    <div class="section">
+      <div class="section-title">Formats de contenu compatibles</div>
+      <table class="specs-table">
+        <tr><td>Panorama 360° / 320°</td><td>Capture photographique ou vidéo immersive</td></tr>
+        <tr><td>CGI / 3D temps réel</td><td>Reconstitutions architecturales, historiques</td></tr>
+        <tr><td>Vidéo</td><td>Contenus filmés ou animés</td></tr>
+        <tr><td>Hybride</td><td>Combinaison de formats, contenus interactifs</td></tr>
+      </table>
+      <p class="desc" style="margin-top: 12px; font-size: 0.82rem;">
+        Aucun format propriétaire. Aucune redevance par visionnage. Liberté totale sur votre contenu.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div>
+        4D-Scope · Belgique<br />
+        Document non contractuel · Spécifications susceptibles d'évolution
+      </div>
+      <div class="contact">
+        <a href="mailto:contact@4d-scope.com">contact@4d-scope.com</a><br />
+        <a href="https://4d-scope.com">4d-scope.com</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

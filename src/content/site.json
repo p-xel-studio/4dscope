@@ -46,21 +46,21 @@
     ]
   },
   "stats": [
-    { "value": "6+", "label": "Années d'utilisation intensive en conditions réelles" },
-    { "value": "5", "label": "Installations actives en fonctionnement continu" },
-    { "value": "5 ans", "label": "Garantie structurelle sur chaque borne" },
-    { "value": "V3", "label": "Troisième génération en production 2026" }
+    { "value": "6+", "label": "Années d'utilisation en conditions réelles" },
+    { "value": "5", "label": "Installations actives en Belgique" },
+    { "value": "25 kg", "label": "Poids total de la borne Mira" },
+    { "value": "5 ans", "label": "Garantie structurelle" }
   ],
   "useCases": {
     "tag": "Applications",
     "title": "Une borne VR pour chaque contexte patrimonial.",
     "subtitle": "Partout où un lieu a une histoire à raconter, passé, présent ou futur.",
     "cases": [
-      { "icon": "/Icon_Musee.svg", "title": "Musées", "text": "Reconstitutions historiques et expositions immersives" },
-      { "icon": "/Icon_villes.svg", "title": "Villes et territoires", "text": "Projections urbaines passé / présent / futur" },
-      { "icon": "/Icon_tourism.svg", "title": "Tourisme", "text": "Points de vue panoramiques et circuits patrimoniaux" },
-      { "icon": "/Icon_immo.svg", "title": "Immobilier et génie civil", "text": "Visualisation de projets futurs sur site" },
-      { "icon": "/Icon_Event.svg", "title": "Événements", "text": "Activations immersives temporaires et itinérantes" }
+      { "icon": "/Icon_Musee.svg", "title": "Musées et sites culturels", "text": "Reconstitutions historiques en 3D, visites immersives d'expositions, mise en valeur de collections et de vestiges archéologiques" },
+      { "icon": "/Icon_villes.svg", "title": "Villes et communes", "text": "Valorisation du patrimoine local, engagement citoyen, communication de projets urbains, comparaison passé/présent/futur d'un quartier ou d'un monument" },
+      { "icon": "/Icon_tourism.svg", "title": "Tourisme et patrimoine", "text": "Points de vue panoramiques, circuits de découverte, mise en contexte historique de sites naturels ou bâtis, enrichissement de l'offre touristique" },
+      { "icon": "/Icon_immo.svg", "title": "Immobilier et génie civil", "text": "Visualisation de projets architecturaux directement sur site, présentation de futures constructions ou rénovations aux riverains et décideurs" },
+      { "icon": "/Icon_Event.svg", "title": "Événements", "text": "Activations immersives temporaires ou itinérantes, salons professionnels, inaugurations, journées du patrimoine, festivals culturels" }
     ]
   },
   "differentiator": {
