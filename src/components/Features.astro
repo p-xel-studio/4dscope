@@ -20,9 +20,59 @@ const iconPaths: Record<string, string> = {
     </div>
 
     <div class="flex gap-10 mt-16 items-center">
-      <!-- Mira product image -->
-      <div class="gs-reveal hidden lg:flex flex-shrink-0 justify-center">
+      <!-- Mira product image with tech annotations -->
+      <div class="gs-reveal hidden lg:flex flex-shrink-0 justify-center relative">
         <img src="/Mira_borne-02.webp" alt="Mira V3 vue de face" class="w-[280px] drop-shadow-[0_20px_50px_rgba(90,170,150,0.12)]" width="600" height="800" loading="lazy" />
+
+        <!-- Annotation: Casque VR -->
+        <div class="spec-annotation absolute top-[12%] right-[-30px]">
+          <div class="spec-line w-[50px] h-px bg-accent/40 absolute right-full top-1/2"></div>
+          <div class="spec-dot absolute right-full top-1/2 -translate-y-1/2 -translate-x-[50px] w-2 h-2 rounded-full bg-accent/60 ring-2 ring-accent/20"></div>
+          <div class="spec-label bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5">
+            <span class="text-[0.65rem] uppercase tracking-[0.12em] text-accent font-medium">PICO G3</span>
+            <span class="block text-[0.6rem] text-text-m">3664×1920 · 98° FoV</span>
+          </div>
+        </div>
+
+        <!-- Annotation: Anti-vandalisme -->
+        <div class="spec-annotation absolute top-[28%] left-[-40px]">
+          <div class="spec-line w-[40px] h-px bg-accent/40 absolute left-full top-1/2"></div>
+          <div class="spec-dot absolute left-full top-1/2 -translate-y-1/2 translate-x-[40px] w-2 h-2 rounded-full bg-accent/60 ring-2 ring-accent/20"></div>
+          <div class="spec-label bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5 text-right">
+            <span class="text-[0.65rem] uppercase tracking-[0.12em] text-accent font-medium">Anti-vandalisme</span>
+            <span class="block text-[0.6rem] text-text-m">Inox + alu + carbone</span>
+          </div>
+        </div>
+
+        <!-- Annotation: Rotation -->
+        <div class="spec-annotation absolute top-[45%] right-[-20px]">
+          <div class="spec-line w-[30px] h-px bg-accent/40 absolute right-full top-1/2"></div>
+          <div class="spec-dot absolute right-full top-1/2 -translate-y-1/2 -translate-x-[30px] w-2 h-2 rounded-full bg-accent/60 ring-2 ring-accent/20"></div>
+          <div class="spec-label bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5">
+            <span class="text-[0.65rem] uppercase tracking-[0.12em] text-accent font-medium">350°</span>
+            <span class="block text-[0.6rem] text-text-m">Rotation fluide</span>
+          </div>
+        </div>
+
+        <!-- Annotation: Colonne télescopique -->
+        <div class="spec-annotation absolute top-[65%] left-[-40px]">
+          <div class="spec-line w-[50px] h-px bg-accent/40 absolute left-full top-1/2"></div>
+          <div class="spec-dot absolute left-full top-1/2 -translate-y-1/2 translate-x-[50px] w-2 h-2 rounded-full bg-accent/60 ring-2 ring-accent/20"></div>
+          <div class="spec-label bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5 text-right">
+            <span class="text-[0.65rem] uppercase tracking-[0.12em] text-accent font-medium">Télescopique</span>
+            <span class="block text-[0.6rem] text-text-m">1,20 m → 1,90 m</span>
+          </div>
+        </div>
+
+        <!-- Annotation: Poids -->
+        <div class="spec-annotation absolute bottom-[8%] right-[-10px]">
+          <div class="spec-line w-[30px] h-px bg-accent/40 absolute right-full top-1/2"></div>
+          <div class="spec-dot absolute right-full top-1/2 -translate-y-1/2 -translate-x-[30px] w-2 h-2 rounded-full bg-accent/60 ring-2 ring-accent/20"></div>
+          <div class="spec-label bg-accent/10 border border-accent/20 rounded-lg px-3 py-1.5">
+            <span class="text-[0.65rem] uppercase tracking-[0.12em] text-accent font-medium">25 kg</span>
+            <span class="block text-[0.6rem] text-text-m">Ultra-léger</span>
+          </div>
+        </div>
       </div>
 
       <!-- Specs grid -->
