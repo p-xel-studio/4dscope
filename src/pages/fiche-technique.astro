@@ -260,8 +260,22 @@ import site from '@/content/site.json';
       .header-right { color: #666; }
       .header-right .brand { color: #1a1a1a; }
 
+      /* Fix logo white on white */
+      .header-right img { filter: brightness(0); }
+
+      /* Prevent page breaks inside sections */
+      .section { page-break-inside: avoid; break-inside: avoid; margin-bottom: 24px; }
+      .offer-card { page-break-inside: avoid; break-inside: avoid; }
+      .two-col { page-break-inside: avoid; break-inside: avoid; }
+      .header { page-break-after: avoid; break-after: avoid; }
+      .specs-table { page-break-inside: avoid; break-inside: avoid; }
+      .options-list { page-break-inside: avoid; break-inside: avoid; }
+
+      /* Section titles never orphaned at bottom of page */
+      .section-title { page-break-after: avoid; break-after: avoid; padding-top: 8px; }
+
       .no-print { display: none !important; }
-      @page { margin: 1.5cm; }
+      @page { margin: 1.5cm; size: A4 portrait; }
     }
 
     /* Print/download button */
