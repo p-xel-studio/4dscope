@@ -81,8 +81,8 @@
         "text": "Aucune plateforme propriétaire. Pas de redevance par visionnage. Vous gardez le contrôle de votre contenu : 360°, CGI, vidéo, le format est libre."
       },
       {
-        "title": "Pas de monnayeur. L'immersion, pas le péage.",
-        "text": "Nous déconseillons le paiement par visionnage. L'expérience doit être fluide et incluse dans le billet de visite. Moins de friction, plus de satisfaction."
+        "title": "Monnayeur en option, mais pas par défaut.",
+        "text": "L'installation d'un monnayeur est techniquement possible. Nous recommandons cependant d'inclure l'accès dans le billet de visite : moins de friction, plus de satisfaction, et pas de réclamations en cas de panne."
       },
       {
         "title": "Ingénierie et production belges",
@@ -91,10 +91,10 @@
     ],
     "comparison": [
       { "feature": "Matériaux structure", "us": "Alu + inox + carbone", "them": "Acier inoxydable" },
-      { "feature": "Poids", "us": "25 kg", "them": "190 kg" },
+      { "feature": "Poids", "us": "30 kg (modulaire)", "them": "190 kg" },
       { "feature": "Hauteur ajustable", "us": "1,20 m → 1,90 m", "them": "Fixe" },
       { "feature": "Liberté contenu", "us": "Totale, aucun lock-in", "them": "Plateforme propriétaire" },
-      { "feature": "Monnayeur", "us": "Non (par choix UX)", "them": "Oui" },
+      { "feature": "Monnayeur", "us": "En option (non recommandé)", "them": "Oui" },
       { "feature": "Garantie structure", "us": "5 ans", "them": "Non communiquée" },
       { "feature": "Encastrement possible", "us": "Oui", "them": "Non" },
       { "feature": "Fabrication", "us": "Belgique 🇧🇪", "them": "France" }
