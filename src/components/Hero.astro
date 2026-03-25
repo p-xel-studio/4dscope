@@ -5,13 +5,10 @@ const { hero } = site;
 
 <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-24 px-5 sm:px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
 
-  <!-- Video background — only loaded on desktop (saves 6MB on mobile) -->
-  <div id="hero-video-slot" class="absolute inset-0"></div>
-  <template id="hero-video-tpl">
-    <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-      <source src="/Hero_Animated_background.mp4" type="video/mp4" />
-    </video>
-  </template>
+  <!-- Video background -->
+  <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+    <source src="/Hero_Animated_background.mp4" type="video/mp4" />
+  </video>
   <!-- Dark overlay for text readability -->
   <div class="absolute inset-0 bg-black/65"></div>
 
@@ -100,13 +97,6 @@ const { hero } = site;
 </section>
 
 <script>
-  // Video: insert only on desktop (saves 6MB on mobile)
-  if (window.matchMedia('(min-width: 640px)').matches) {
-    const slot = document.getElementById('hero-video-slot');
-    const tpl = document.getElementById('hero-video-tpl') as HTMLTemplateElement;
-    if (slot && tpl) slot.appendChild(tpl.content.cloneNode(true));
-  }
-
   // Defer all GSAP work — not needed for first paint
   requestAnimationFrame(() => {
     import('gsap').then(({ gsap }) => {
