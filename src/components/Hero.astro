@@ -100,148 +100,102 @@ const { hero } = site;
 </section>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
-  const dotsCanvas = document.getElementById('hero-dots') as HTMLCanvasElement;
-  const section = document.getElementById('hero-section');
-
-  if (dotsCanvas && section) {
-    const ctx = dotsCanvas.getContext('2d')!;
-    let width = 0;
-    let height = 0;
-    let cols = 0;
-    let rows = 0;
-    let spacing = 22;
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    if (isMobile) spacing = 38;
-
-    const baseRadius = isMobile ? 0.8 : 1;
-    const accentR = 90, accentG = 170, accentB = 150;
-
-    // Mouse interaction
-    const mouse = { x: -9999, y: -9999 };
-    const mouseSmooth = { x: -9999, y: -9999 };
-    const mouseRadius = isMobile ? 0 : 160;
-
-    if (!isMobile) {
-      section.addEventListener('mousemove', (e) => {
-        const rect = dotsCanvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-      });
-      section.addEventListener('mouseleave', () => {
-        mouse.x = -9999;
-        mouse.y = -9999;
-      });
-    }
-
-    function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = dotsCanvas.offsetWidth;
-      height = dotsCanvas.offsetHeight;
-      dotsCanvas.width = width * dpr;
-      dotsCanvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.ceil(width / spacing) + 1;
-      rows = Math.ceil(height / spacing) + 1;
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    const state = { time: 0 };
-
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      const t = state.time;
-
-      mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.12;
-      mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.12;
-      const mx = mouseSmooth.x;
-      const my = mouseSmooth.y;
-      const mr2 = mouseRadius * mouseRadius;
-
-      for (let row = 0; row < rows; row++) {
-        const y = row * spacing;
-        for (let col = 0; col < cols; col++) {
-          const x = col * spacing;
-
-          const wave1 = Math.sin(x * 0.008 + t * 1.2) * Math.cos(y * 0.006 + t * 0.8);
-          const wave2 = Math.sin((x + y) * 0.005 + t * 0.6) * 0.5;
-          const combined = (wave1 + wave2) * 0.5 + 0.5;
-
-          let opacity = 0.05 + combined * 0.3;
-          let radius = baseRadius + combined * 0.6;
-
-          const dx = x - mx;
-          const dy = y - my;
-          const dist2 = dx * dx + dy * dy;
-          if (dist2 < mr2) {
-            const proximity = 1 - Math.sqrt(dist2) / mouseRadius;
-            const ease = proximity * proximity * proximity;
-            opacity += ease * 0.85;
-            radius += ease * 4;
-          }
-
-          ctx.beginPath();
-          ctx.arc(x, y, radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${accentR},${accentG},${accentB},${opacity})`;
-          ctx.fill();
-        }
-      }
-    }
-
-    gsap.ticker.add(draw);
-    gsap.to(state, { time: 100, duration: 100, ease: 'none', repeat: -1 });
-
-    document.addEventListener('astro:before-swap', () => {
-      gsap.ticker.remove(draw);
-      window.removeEventListener('resize', resize);
-    });
-  }
-
-  // Only load hero video on desktop (saves 6MB on mobile)
+  // Video: insert only on desktop (saves 6MB on mobile)
   if (window.matchMedia('(min-width: 640px)').matches) {
     const slot = document.getElementById('hero-video-slot');
     const tpl = document.getElementById('hero-video-tpl') as HTMLTemplateElement;
-    if (slot && tpl) {
-      slot.appendChild(tpl.content.cloneNode(true));
-    }
+    if (slot && tpl) slot.appendChild(tpl.content.cloneNode(true));
   }
 
-  // Floating cards stagger animation
-  const heroCards = document.querySelectorAll('.hero-card');
-  if (heroCards.length) {
-    gsap.set(heroCards, { opacity: 0, y: 30, scale: 0.95 });
-    gsap.to(heroCards, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.15,
-      delay: 0.8,
-      scrollTrigger: {
-        trigger: heroCards[0].parentElement,
-        start: 'top 80%',
-        once: true,
-      },
-    });
+  // Defer all GSAP work — not needed for first paint
+  requestAnimationFrame(() => {
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
 
-    // Subtle floating animation after entrance
-    heroCards.forEach((card, i) => {
-      gsap.to(card, {
-        y: -6,
-        duration: 2.5 + i * 0.3,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-        delay: 1.5 + i * 0.15,
-        force3d: true,
-        rotation: 0.01,
+        // Dot grid canvas (desktop only)
+        const dotsCanvas = document.getElementById('hero-dots') as HTMLCanvasElement;
+        const section = document.getElementById('hero-section');
+
+        if (dotsCanvas && section) {
+          const ctx = dotsCanvas.getContext('2d')!;
+          let width = 0, height = 0, cols = 0, rows = 0, spacing = 22;
+          const baseRadius = 1;
+          const accentR = 90, accentG = 170, accentB = 150;
+          const mouse = { x: -9999, y: -9999 };
+          const mouseSmooth = { x: -9999, y: -9999 };
+          const mouseRadius = 160;
+
+          section.addEventListener('mousemove', (e) => {
+            const rect = dotsCanvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+          });
+          section.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+          function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = dotsCanvas.offsetWidth;
+            height = dotsCanvas.offsetHeight;
+            dotsCanvas.width = width * dpr;
+            dotsCanvas.height = height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            cols = Math.ceil(width / spacing) + 1;
+            rows = Math.ceil(height / spacing) + 1;
+          }
+          resize();
+          window.addEventListener('resize', resize);
+
+          const state = { time: 0 };
+          function draw() {
+            ctx.clearRect(0, 0, width, height);
+            const t = state.time;
+            mouseSmooth.x += (mouse.x - mouseSmooth.x) * 0.12;
+            mouseSmooth.y += (mouse.y - mouseSmooth.y) * 0.12;
+            const mx = mouseSmooth.x, my = mouseSmooth.y, mr2 = mouseRadius * mouseRadius;
+            for (let row = 0; row < rows; row++) {
+              const y = row * spacing;
+              for (let col = 0; col < cols; col++) {
+                const x = col * spacing;
+                const wave1 = Math.sin(x * 0.008 + t * 1.2) * Math.cos(y * 0.006 + t * 0.8);
+                const wave2 = Math.sin((x + y) * 0.005 + t * 0.6) * 0.5;
+                const combined = (wave1 + wave2) * 0.5 + 0.5;
+                let opacity = 0.05 + combined * 0.3;
+                let radius = baseRadius + combined * 0.6;
+                const dx = x - mx, dy = y - my, dist2 = dx * dx + dy * dy;
+                if (dist2 < mr2) {
+                  const ease = Math.pow(1 - Math.sqrt(dist2) / mouseRadius, 3);
+                  opacity += ease * 0.85;
+                  radius += ease * 4;
+                }
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${accentR},${accentG},${accentB},${opacity})`;
+                ctx.fill();
+              }
+            }
+          }
+          gsap.ticker.add(draw);
+          gsap.to(state, { time: 100, duration: 100, ease: 'none', repeat: -1 });
+        }
+
+        // Floating cards
+        const heroCards = document.querySelectorAll('.hero-card');
+        if (heroCards.length) {
+          gsap.set(heroCards, { opacity: 0, y: 30, scale: 0.95 });
+          gsap.to(heroCards, {
+            opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out',
+            stagger: 0.15, delay: 0.3,
+            scrollTrigger: { trigger: heroCards[0].parentElement, start: 'top 80%', once: true },
+          });
+          heroCards.forEach((card, i) => {
+            gsap.to(card, {
+              y: -6, duration: 2.5 + i * 0.3, ease: 'sine.inOut',
+              repeat: -1, yoyo: true, delay: 1.5 + i * 0.15, force3d: true, rotation: 0.01,
+            });
+          });
+        }
       });
     });
-  }
+  });
 </script>
