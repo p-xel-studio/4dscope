@@ -5,10 +5,13 @@ const { hero } = site;
 
 <section id="hero-section" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-32 pb-16 sm:pb-24 px-5 sm:px-8" aria-label="Présentation de la borne immersive Mira by 4D-Scope">
 
-  <!-- Video background — hidden on mobile to save 6MB -->
-  <video id="hero-video" class="hidden sm:block absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-    <source src="/Hero_Animated_background.mp4" type="video/mp4" />
-  </video>
+  <!-- Video background — only loaded on desktop (saves 6MB on mobile) -->
+  <div id="hero-video-slot" class="absolute inset-0"></div>
+  <template id="hero-video-tpl">
+    <video class="absolute inset-0 w-full h-full object-cover" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
+      <source src="/Hero_Animated_background.mp4" type="video/mp4" />
+    </video>
+  </template>
   <!-- Dark overlay for text readability -->
   <div class="absolute inset-0 bg-black/65"></div>
 
@@ -199,14 +202,13 @@ const { hero } = site;
     });
   }
 
-  // Force video play on mobile (some browsers block autoplay)
-  const heroVideo = document.getElementById('hero-video') as HTMLVideoElement;
-  if (heroVideo) {
-    heroVideo.play().catch(() => {
-      // Autoplay blocked — try on first user interaction
-      const playOnce = () => { heroVideo.play(); document.removeEventListener('touchstart', playOnce); };
-      document.addEventListener('touchstart', playOnce, { once: true });
-    });
+  // Only load hero video on desktop (saves 6MB on mobile)
+  if (window.matchMedia('(min-width: 640px)').matches) {
+    const slot = document.getElementById('hero-video-slot');
+    const tpl = document.getElementById('hero-video-tpl') as HTMLTemplateElement;
+    if (slot && tpl) {
+      slot.appendChild(tpl.content.cloneNode(true));
+    }
   }
 
   // Floating cards stagger animation
