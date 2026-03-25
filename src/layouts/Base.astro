@@ -95,43 +95,54 @@ const {
 <body>
   <slot />
 
-  <!-- GSAP + ScrollTrigger -->
+  <!-- GSAP + ScrollTrigger — deferred to avoid blocking first paint -->
   <script>
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    function initGSAP() {
+      Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]).then(([{ gsap }, { ScrollTrigger }]) => {
+        gsap.registerPlugin(ScrollTrigger);
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Reveal animations
-    document.querySelectorAll('.gs-reveal').forEach((el) => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-    });
-
-    // Mobile card glow on scroll
-    if (window.matchMedia('(max-width: 1023px)').matches) {
-      document.querySelectorAll('article').forEach((card) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 80%',
-          onEnter: () => {
-            card.classList.add('glow-in');
-            setTimeout(() => card.classList.remove('glow-in'), 1200);
-          },
+        // Reveal animations
+        document.querySelectorAll('.gs-reveal').forEach((el) => {
+          gsap.fromTo(el,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                once: true,
+              },
+            }
+          );
         });
+
+        // Mobile card glow on scroll
+        if (window.matchMedia('(max-width: 1023px)').matches) {
+          document.querySelectorAll('article').forEach((card) => {
+            ScrollTrigger.create({
+              trigger: card,
+              start: 'top 80%',
+              onEnter: () => {
+                card.classList.add('glow-in');
+                setTimeout(() => card.classList.remove('glow-in'), 1200);
+              },
+            });
+          });
+        }
       });
+    }
+
+    // Defer GSAP init until after first paint
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initGSAP);
+    } else {
+      setTimeout(initGSAP, 200);
     }
 
     // Nav scroll effect
