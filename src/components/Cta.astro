@@ -32,11 +32,20 @@ const { cta } = site;
 
       <!-- Right: contact form -->
       <div class="gs-reveal w-full max-w-[480px] lg:flex-shrink-0">
-        <form id="contact-form" action="https://formsubmit.co/poletech.liege@gmail.com" method="POST" class="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 space-y-5">
+        <!-- Success message (hidden by default) -->
+        <div id="form-success" class="hidden bg-white/[0.04] backdrop-blur-xl border border-accent/20 rounded-2xl p-7 sm:p-9 text-center">
+          <div class="w-14 h-14 mx-auto mb-5 rounded-full bg-accent/15 flex items-center justify-center">
+            <svg class="w-7 h-7 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 class="font-serif text-[1.4rem] text-wh mb-2">Message envoyé.</h3>
+          <p class="text-[0.92rem] text-text-m leading-relaxed mb-1">Merci pour votre intérêt.</p>
+          <p class="text-[0.92rem] text-text-m leading-relaxed">Nous vous recontactons sous 24 heures.</p>
+        </div>
+
+        <form id="contact-form" class="bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] rounded-2xl p-7 sm:p-9 space-y-5">
           <!-- FormSubmit config -->
           <input type="hidden" name="_subject" value="Nouveau contact 4D-Scope" />
           <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_next" value="https://www.4d-scope.com/#contact" />
           <input type="hidden" name="_template" value="table" />
           <input type="text" name="_honey" style="display:none" />
           <!-- Name row -->
@@ -115,4 +124,32 @@ const { cta } = site;
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const success = document.getElementById('form-success');
+  if (form && success) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Envoi en cours...';
+      btn.disabled = true;
+      try {
+        const data = new FormData(form);
+        await fetch('https://formsubmit.co/ajax/poletech.liege@gmail.com', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data,
+        });
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+      } catch {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        alert('Une erreur est survenue. Veuillez réessayer ou nous contacter par email.');
+      }
+    });
+  }
+</script>
 
